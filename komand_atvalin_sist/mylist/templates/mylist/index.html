@@ -1,0 +1,194 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'mylist/style.css' %}"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="row justify-content-md-center" id="navigation">
+
+                <div class="col col-lg-2">
+                    <b><a class="link" href="#"> Mans saraksts</a> </b>
+                </div>
+                <div class="col col-lg-1">
+                    <b><a class="link" href="#"> Visi</a> </b>
+                </div>
+                <div class="col col-lg-2">
+                    <b><a class="link" href="#"> Saglabātie</a> </b>
+                </div>
+
+            </div>
+
+            <div class="gads"> 2017</div>
+
+            <button type="button" class="pievienot" data-toggle="modal" data-target="#pievienot"> +Pievienot</button>
+            <div class="modal fade" id="pievienot">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            Header
+                        </div>
+                        <div class="modal-body">
+                            <form method='POST' role="form" action="/mylist/">{% csrf_token %}
+                                <input type="text" name="dati" value="1">
+                                <input type="submit" value="Saglabāt">
+                            </form>
+                            Body
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Aizvērt</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="tabulas-galva">
+                        <th>Mērķis</th>
+                        <th>Vieta</th>
+                        <th>No</th>
+                        <th>Līdz</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    <tr>
+                        <td>Komandējums</td>
+                        <td>Parīze</td>
+                        <td>12.05.2017</td>
+                        <td>15.05.2017</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Komandējums</td>
+                        <td>Brisele</td>
+                        <td>11.04.2017</td>
+                        <td>17.04.2017</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Atvaļinājums</td>
+                        <td></td>
+                        <td>11.04.2017</td>
+                        <td>17.04.2017</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        <div class="w3-center w3-small">
+            <div class="w3-bar">
+              <a href="#" class="w3-button">&laquo;</a>
+              <a href="#" class="w3-button">1</a>
+              <a href="#" class="w3-button">2</a>
+              <a href="#" class="w3-button">&raquo;</a>
+            </div>
+        </div>
+
+              <div class="row">
+            <div class="col">
+              <span class="atvalinajumi">Atvaļinājumi</span>
+                <span class="dienas">Pieejamās dienas: <b>23</b></span>
+
+
+            <table class="table table-condensed">
+                <thead>
+                  <tr class="tabulas-galva">
+                    <th>No</th>
+                    <th>Līdz</th>
+                    <th>Dienas</th>
+                  </tr>
+                </thead>
+                <tbody class="tbody">
+                  <tr>
+                    <td>24.03.2017.</td>
+                    <td>26.03.2017.</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td>10.03.2017</td>
+                    <td>15.03.2017</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <td>21.01.2016</td>
+                    <td>28.01.2017</td>
+                    <td>7</td>
+                  </tr>
+                </tbody>
+            </table>
+
+                <div class="w3-center w3-small">
+        <div class="w3-bar">
+          <a href="#" class="w3-button">&laquo;</a>
+          <a href="#" class="w3-button">1</a>
+          <a href="#" class="w3-button">2</a>
+          <a href="#" class="w3-button">&raquo;</a>
+        </div>
+        </div>
+
+
+            </div>
+            <div class="col">
+                    <span class="atvalinajumi">Komandejumi</span>
+
+
+                <table class="table table-condensed">
+            <thead>
+              <tr class="tabulas-galva">
+                <th>Vieta</th>
+                <th>No</th>
+                <th>Līdz</th>
+                <th>Dienas</th>
+              </tr>
+            </thead>
+            <tbody class="tbody">
+              <tr>
+                <td>Ventspils</td>
+                <td>24.03.2017.</td>
+                <td>26.03.2017.</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                  <td></td>
+                <td>10.03.2017</td>
+                <td>15.03.2017</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>21.01.2016</td>
+                <td>28.01.2017</td>
+                <td>7</td>
+              </tr>
+            </tbody>
+          </table>
+
+                <div class="w3-center w3-small">
+        <div class="w3-bar">
+          <a href="#" class="w3-button">&laquo;</a>
+          <a href="#" class="w3-button">1</a>
+          <a href="#" class="w3-button">2</a>
+          <a href="#" class="w3-button">&raquo;</a>
+        </div>
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+{{ dati }}
+
+</body>

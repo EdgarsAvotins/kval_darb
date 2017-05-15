@@ -1,0 +1,66 @@
+.link{
+    text-decoration: none;
+    color:black;
+}
+
+.gads {
+    float: left;
+    margin-top: 20px;
+    font-size: 22px;
+    color: #29abe2;
+    /*margin-left: 10%;*/
+}
+
+.pievienot {
+  margin-top: 20px;
+  float: right;
+  width: 131px;
+  height: 25px;
+  background-color: #86d1f0;
+  border: solid 1px #dcdcdc;
+  /*margin-right: 10%;*/
+  color: white;
+}
+
+.tabulas-galva {
+    font-size: 10px;
+
+}
+
+.tbody {
+    font-size: 12px;
+}
+
+.atvalinajumi {
+    float: left;
+    margin-top: 20px;
+    font-size: 20px;
+    color: #29abe2;
+    /*margin-left: 10%;*/
+}
+
+.dienas {
+    margin-top: 25px;
+    float: right;
+    font-size: 13px;
+    color: #727d8c;
+
+}
+
+.box {
+    margin-left:15%;
+    margin-right:15%;
+}
+
+body{
+    background-color: #f1f2f4;
+}
+
+table{
+    background-color: white;
+}
+
+#navigation{
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
