@@ -11,9 +11,21 @@
     /*margin-left: 10%;*/
 }
 
+.btn {
+    border-radius: 0px;
+}
+
+.row-vacation{
+    background-color: #e2edf7;
+}
+
+.row-business-travel{
+    background-color: white;
+}
+
 .pievienot {
-  margin-top: 20px;
-  float: right;
+  margin: 20px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
   width: 131px;
   height: 25px;
   background-color: #86d1f0;
@@ -56,11 +68,16 @@ body{
     background-color: #f1f2f4;
 }
 
-table{
-    background-color: white;
-}
-
 #navigation{
     padding-top: 50px;
     padding-bottom: 20px;
+}
+
+#add-entry-popup{
+    position: absolute;
+
+}
+
+#test-div{
+    position: relative;
 }

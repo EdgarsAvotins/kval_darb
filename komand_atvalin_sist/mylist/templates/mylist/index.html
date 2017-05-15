@@ -27,8 +27,8 @@
 
             </div>
 
-            <div class="gads"> 2017</div>
-
+            <div class="gads"> {% now 'Y %}</div>
+<!--
             <button type="button" class="pievienot" data-toggle="modal" data-target="#pievienot"> +Pievienot</button>
             <div class="modal fade" id="pievienot">
                 <div class="modal-dialog">
@@ -49,10 +49,22 @@
                     </div>
                 </div>
             </div>
+-->
+            <div class="dropdown pull-right">
+                <div class="btn pievienot" data-toggle="dropdown" role="button" aria-expanded="false">
+                    +Pievienot
+                </div>
+                <div class="dropdown-menu form-login stop-propagation" role="menu">
+                    <div class="form-group">
+                        Something
+                    </div>
+                </div>
+            </div>
 
-            <table class="table table-condensed">
+            <table class="table">
+
                 <thead>
-                    <tr class="tabulas-galva">
+                    <tr class="tabulas-galva row-header">
                         <th>Mērķis</th>
                         <th>Vieta</th>
                         <th>No</th>
@@ -60,31 +72,26 @@
                         <th></th>
                     </tr>
                 </thead>
+                {% for ieraksts in ieraksti %}
                 <tbody class="tbody">
-                    <tr>
-                        <td>Komandējums</td>
-                        <td>Parīze</td>
-                        <td>12.05.2017</td>
-                        <td>15.05.2017</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Komandējums</td>
-                        <td>Brisele</td>
-                        <td>11.04.2017</td>
-                        <td>17.04.2017</td>
-                        <td></td>
-                    </tr>
-                    <tr>
+                    {% if ieraksts.merkis == 'atvalinajums' %}
+                    <tr class="row-vacation">
+                    {% elif ieraksts.merkis == 'atvalinajums' %}
+                    <tr class="row-business-travel">
+                    {% endif %}
+                        {% if ieraksts.merkis == 'atvalinajums' %}
                         <td>Atvaļinājums</td>
-                        <td></td>
-                        <td>11.04.2017</td>
-                        <td>17.04.2017</td>
+                        {% elif ieraksts.merkis == 'komandejums' %}
+                        <td>Komandējums</td>
+                        {% endif %}
+                        <td>{{ ieraksts.vieta }}</td>
+                        <td>{{ ieraksts.datums_no|date:"d.m.Y" }}</td>
+                        <td>{{ ieraksts.datums_lidz|date:"d.m.Y"}}</td>
                         <td></td>
                     </tr>
                 </tbody>
+                {% endfor %}
             </table>
-
 
         <div class="w3-center w3-small">
             <div class="w3-bar">
@@ -101,7 +108,7 @@
                 <span class="dienas">Pieejamās dienas: <b>23</b></span>
 
 
-            <table class="table table-condensed">
+            <table class="table">
                 <thead>
                   <tr class="tabulas-galva">
                     <th>No</th>
@@ -109,23 +116,15 @@
                     <th>Dienas</th>
                   </tr>
                 </thead>
+                {% for ieraksts in atvalinajumu_ieraksti %}
                 <tbody class="tbody">
-                  <tr>
-                    <td>24.03.2017.</td>
-                    <td>26.03.2017.</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>10.03.2017</td>
-                    <td>15.03.2017</td>
-                    <td>5</td>
-                  </tr>
-                  <tr>
-                    <td>21.01.2016</td>
-                    <td>28.01.2017</td>
-                    <td>7</td>
+                  <tr class="row-business-travel">
+                    <td>{{ ieraksts.datums_no|date:"d.m.Y" }}</td>
+                    <td>{{ ieraksts.datums_lidz|date:"d.m.Y" }}</td>
+                    <td>{{ ieraksts.datums_no|timesince:ieraksts.datums_lidz|time:"D"}}</td>
                   </tr>
                 </tbody>
+                {% endfor %}
             </table>
 
                 <div class="w3-center w3-small">
@@ -143,7 +142,7 @@
                     <span class="atvalinajumi">Komandejumi</span>
 
 
-                <table class="table table-condensed">
+                <table class="table">
             <thead>
               <tr class="tabulas-galva">
                 <th>Vieta</th>
@@ -152,25 +151,16 @@
                 <th>Dienas</th>
               </tr>
             </thead>
+                    {% for ieraksts in komandejumu_ieraksti %}
             <tbody class="tbody">
-              <tr>
-                <td>Ventspils</td>
-                <td>24.03.2017.</td>
-                <td>26.03.2017.</td>
-                <td>2</td>
+              <tr class="row-business-travel">
+                <td>{{ ieraksts.vieta }}</td>
+                <td>{{ ieraksts.datums_no|date:"d.m.Y" }}</td>
+                <td>{{ ieraksts.datums_lidz|date:"d.m.Y" }}</td>
+                <td>{{ ieraksts.datums_no|timesince:ieraksts.datums_lidz}}</td>
               </tr>
-              <tr>
-                  <td></td>
-                <td>10.03.2017</td>
-                <td>15.03.2017</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>21.01.2016</td>
-                <td>28.01.2017</td>
-                <td>7</td>
-              </tr>
+            {% endfor %}
+
             </tbody>
           </table>
 
@@ -189,6 +179,7 @@
         </div>
     </div>
 
-{{ dati }}
+
+
 
 </body>
