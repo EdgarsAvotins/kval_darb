@@ -10,6 +10,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="{% static 'JavaScript/scripts.js' %}"></script>
+
 <body>
     <div class="container">
         <div class="box">
@@ -27,7 +29,8 @@
 
             </div>
 
-            <div class="gads"> {% now 'Y %}</div>
+            <div class="gads"> {% now 'Y' %} </div>
+
 <!--
             <button type="button" class="pievienot" data-toggle="modal" data-target="#pievienot"> +Pievienot</button>
             <div class="modal fade" id="pievienot">
@@ -54,9 +57,16 @@
                 <div class="btn pievienot" data-toggle="dropdown" role="button" aria-expanded="false">
                     +Pievienot
                 </div>
-                <div class="dropdown-menu form-login stop-propagation" role="menu">
+                <div class="dropdown-menu stop-propagation pievienot-menu" role="menu">
                     <div class="form-group">
-                        Something
+                        <div class="radio">
+                            <label><input type="radio" name="optradio">Komandejums</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="optradio">Atvalinajums</label>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -76,7 +86,7 @@
                 <tbody class="tbody">
                     {% if ieraksts.merkis == 'atvalinajums' %}
                     <tr class="row-vacation">
-                    {% elif ieraksts.merkis == 'atvalinajums' %}
+                    {% elif ieraksts.merkis == 'komandejums' %}
                     <tr class="row-business-travel">
                     {% endif %}
                         {% if ieraksts.merkis == 'atvalinajums' %}
@@ -93,6 +103,32 @@
                 {% endfor %}
             </table>
 
+            <div class="w3-center w3-small">
+                <div class="pagination">
+                    <div class="w3-bar">
+                        <span class="step-links">
+                            {% if ieraksti.has_previous %}
+                                <a href="?page={{ ieraksti.previous_page_number }}" class="w3-button"> &laquo; </a>
+                            {% else %}
+                                <a href="#" class="w3-button"> &laquo; </a>
+                            {% endif %}
+
+                            <span class="current">
+                                {{ ieraksti.number }}
+                            </span>
+
+                            {% if ieraksti.has_next %}
+                                <a href="?page={{ ieraksti.next_page_number }}" class="w3-button"> &raquo; </a>
+                            {% else %}
+                                <a href="#" class="w3-button"> &raquo; </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+<!--
         <div class="w3-center w3-small">
             <div class="w3-bar">
               <a href="#" class="w3-button">&laquo;</a>
@@ -101,6 +137,7 @@
               <a href="#" class="w3-button">&raquo;</a>
             </div>
         </div>
+!-->
 
               <div class="row">
             <div class="col">
@@ -121,7 +158,7 @@
                   <tr class="row-business-travel">
                     <td>{{ ieraksts.datums_no|date:"d.m.Y" }}</td>
                     <td>{{ ieraksts.datums_lidz|date:"d.m.Y" }}</td>
-                    <td>{{ ieraksts.datums_no|timesince:ieraksts.datums_lidz|time:"D"}}</td>
+                    <td>{{ ieraksts.datums_no|timesince:ieraksts.datums_lidz}}</td>
                   </tr>
                 </tbody>
                 {% endfor %}
@@ -157,7 +194,7 @@
                 <td>{{ ieraksts.vieta }}</td>
                 <td>{{ ieraksts.datums_no|date:"d.m.Y" }}</td>
                 <td>{{ ieraksts.datums_lidz|date:"d.m.Y" }}</td>
-                <td>{{ ieraksts.datums_no|timesince:ieraksts.datums_lidz}}</td>
+                <td>{{ ieraksts.datums_no|timesince:ieraksts.datums_lidz }}</td>
               </tr>
             {% endfor %}
 
