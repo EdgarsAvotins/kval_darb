@@ -8,4 +8,10 @@ urlpatterns = [
 
     # /mylist/all
     url(r'^all$', views.all, name='all'),
+
+    # logout
+    url(r'^logout$', views.LogoutView.as_view(), name='logout'),
+
+    # login
+    url(r'^login/$', views.LoginView.as_view(), name='login'),
 ]

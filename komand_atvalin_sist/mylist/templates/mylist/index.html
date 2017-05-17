@@ -8,7 +8,10 @@
         <div class="box">
 
             <div>
-
+                <a href="{% url 'mylist:logout' %}">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
+                    Izrakstīties
+                </a>
             </div>
 
             <div class="row justify-content-md-center" id="navigation">
@@ -68,11 +71,11 @@
                             <div id="datepickers">
                                 <div id="start-date">
                                     No<br>
-                                    <input class="form-control" id="date" name="datums_no" placeholder="MM/DD/YYYY" type="text"/>
+                                    <input class="form-control datepicker" id="date" name="datums_no" type="text"/>
                                 </div>
                                 <div id="end-date">
                                     Līdz<br>
-                                    <input class="form-control" id="date" name="datums_lidz" placeholder="MM/DD/YYYY" type="text"/>
+                                    <input class="form-control datepicker" id="date" name="datums_lidz" type="text"/>
                                 </div>
                             </div>
 
