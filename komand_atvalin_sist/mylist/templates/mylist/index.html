@@ -1,16 +1,7 @@
+{% extends "mylist/base.html" %}
 {% load staticfiles %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-
-<link rel="stylesheet" type="text/css" href="{% static 'mylist/style.css' %}"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script type="text/javascript" src="{% static 'JavaScript/scripts.js' %}"></script>
+{% block content %}
 
 <body>
     <div class="container">
@@ -18,10 +9,10 @@
             <div class="row justify-content-md-center" id="navigation">
 
                 <div class="col col-lg-2">
-                    <b><a class="link" href="#"> Mans saraksts</a> </b>
+                    <b><a class="link" href="{% url 'mylist:index' %}"> Mans saraksts</a> </b>
                 </div>
                 <div class="col col-lg-1">
-                    <b><a class="link" href="#"> Visi</a> </b>
+                    <b><a class="link" href="{% url 'mylist:all' %}"> Visi</a> </b>
                 </div>
                 <div class="col col-lg-2">
                     <b><a class="link" href="#"> Saglabātie</a> </b>
@@ -40,7 +31,7 @@
                             Header
                         </div>
                         <div class="modal-body">
-                            <form method='POST' role="form" action="/mylist/">{% csrf_token %}
+                            <form method='POST' role="form" action="/mylist/"> ... csrf_token
                                 <input type="text" name="dati" value="1">
                                 <input type="submit" value="Saglabāt">
                             </form>
@@ -53,20 +44,43 @@
                 </div>
             </div>
 -->
+
             <div class="dropdown pull-right">
                 <div class="btn pievienot" data-toggle="dropdown" role="button" aria-expanded="false">
                     +Pievienot
                 </div>
                 <div class="dropdown-menu stop-propagation pievienot-menu" role="menu">
                     <div class="form-group">
-                        <div class="radio">
-                            <label><input type="radio" name="optradio">Komandejums</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="optradio">Atvalinajums</label>
-                        </div>
+                        <form method='POST' role="form" enctype='multipart/form-data' action="/mylist/" id="myform">{% csrf_token %}
+                            <div class="radio">
+                                <label><input type="radio" name="merkis" value="komandejums" checked="checked" id="komandejums-radio">Komandejums</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="merkis" value="atvalinajums" id="atvalinajums-radio">Atvalinajums</label>
+                            </div>
 
 
+                            <div id="datepickers">
+                                <div id="start-date">
+                                    No<br>
+                                    <input class="form-control" id="date" name="datums_no" placeholder="MM/DD/YYYY" type="text"/>
+                                </div>
+                                <div id="end-date">
+                                    Līdz<br>
+                                    <input class="form-control" id="date" name="datums_lidz" placeholder="MM/DD/YYYY" type="text"/>
+                                </div>
+                            </div>
+
+                            <div id="myform-vieta">
+                                Vieta<br>
+                                <input type="text" name="vieta">
+                            </div>
+                            <div class="default-hide" id="myform-iesniegums">
+                                <input type="file" id="file" name="iesniegums">
+                            </div>
+
+                            <input class="btn submit pull-right" type="submit" value="save">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -108,17 +122,17 @@
                     <div class="w3-bar">
                         <span class="step-links">
                             {% if ieraksti.has_previous %}
-                                <a href="?page={{ ieraksti.previous_page_number }}" class="w3-button"> &laquo; </a>
+                                <a href="?table1={{ ieraksti.previous_page_number }}&table2={{ atvalinajumu_ieraksti.number }}&table3={{ komandejumu_ieraksti.number }}" class="w3-button"> &laquo; </a>
                             {% else %}
                                 <a href="#" class="w3-button"> &laquo; </a>
                             {% endif %}
 
                             <span class="current">
-                                {{ ieraksti.number }}
+                                {{ ieraksti.number }} no {{ ieraksti.paginator.num_pages }}
                             </span>
 
                             {% if ieraksti.has_next %}
-                                <a href="?page={{ ieraksti.next_page_number }}" class="w3-button"> &raquo; </a>
+                                <a href="?table1={{ ieraksti.next_page_number }}&table2={{ atvalinajumu_ieraksti.number }}&table3={{ komandejumu_ieraksti.number }}" class="w3-button"> &raquo; </a>
                             {% else %}
                                 <a href="#" class="w3-button"> &raquo; </a>
                             {% endif %}
@@ -164,14 +178,29 @@
                 {% endfor %}
             </table>
 
-                <div class="w3-center w3-small">
-        <div class="w3-bar">
-          <a href="#" class="w3-button">&laquo;</a>
-          <a href="#" class="w3-button">1</a>
-          <a href="#" class="w3-button">2</a>
-          <a href="#" class="w3-button">&raquo;</a>
-        </div>
-        </div>
+            <div class="w3-center w3-small">
+                <div class="pagination">
+                    <div class="w3-bar">
+                        <span class="step-links">
+                            {% if atvalinajumu_ieraksti.has_previous %}
+                                <a href="?table1={{ ieraksti.number }}&table2={{ atvalinajumu_ieraksti.previous_page_number }}&table3={{ komandejumu_ieraksti.number }}" class="w3-button"> &laquo; </a>
+                            {% else %}
+                                <a href="#" class="w3-button"> &laquo; </a>
+                            {% endif %}
+
+                            <span class="current">
+                                {{ atvalinajumu_ieraksti.number }} no {{ atvalinajumu_ieraksti.paginator.num_pages }}
+                            </span>
+
+                            {% if atvalinajumu_ieraksti.has_next %}
+                                <a href="?table1={{ ieraksti.number }}&table2={{ atvalinajumu_ieraksti.next_page_number }}&table3={{ komandejumu_ieraksti.number }}" class="w3-button"> &raquo; </a>
+                            {% else %}
+                                <a href="#" class="w3-button"> &raquo; </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
 
 
             </div>
@@ -188,7 +217,7 @@
                 <th>Dienas</th>
               </tr>
             </thead>
-                    {% for ieraksts in komandejumu_ieraksti %}
+            {% for ieraksts in komandejumu_ieraksti %}
             <tbody class="tbody">
               <tr class="row-business-travel">
                 <td>{{ ieraksts.vieta }}</td>
@@ -199,16 +228,32 @@
             {% endfor %}
 
             </tbody>
-          </table>
+            </table>
 
-                <div class="w3-center w3-small">
-        <div class="w3-bar">
-          <a href="#" class="w3-button">&laquo;</a>
-          <a href="#" class="w3-button">1</a>
-          <a href="#" class="w3-button">2</a>
-          <a href="#" class="w3-button">&raquo;</a>
-        </div>
-        </div>
+            <div class="w3-center w3-small">
+                <div class="pagination">
+                    <div class="w3-bar">
+                        <span class="step-links">
+                            {% if komandejumu_ieraksti.has_previous %}
+                                <a href="?table1={{ ieraksti.number }}&table2={{ atvalinajumu_ieraksti.number }}&table3={{ komandejumu_ieraksti.previous_page_number }}" class="w3-button"> &laquo; </a>
+                            {% else %}
+                                <a href="#" class="w3-button"> &laquo; </a>
+                            {% endif %}
+
+                            <span class="current">
+                                {{ komandejumu_ieraksti.number }} no {{ komandejumu_ieraksti.paginator.num_pages }}
+                            </span>
+
+                            {% if komandejumu_ieraksti.has_next %}
+                                <a href="?table1={{ ieraksti.number }}&table2={{ atvalinajumu_ieraksti.number }}&table3={{ komandejumu_ieraksti.next_page_number }}" class="w3-button"> &raquo; </a>
+                            {% else %}
+                                <a href="#" class="w3-button"> &raquo; </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
 
             </div>
           </div>
@@ -216,7 +261,8 @@
         </div>
     </div>
 
-
-
+{{ uploaded_file_url }}
 
 </body>
+
+{%endblock content%}

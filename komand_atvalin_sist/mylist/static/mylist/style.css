@@ -51,6 +51,12 @@ body{
     padding: 0px 0px 0px 0px;
 }
 
+.submit{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background-color: #86d1f0;
+}
+
 .tabulas-galva {
     font-size: 10px;
 
