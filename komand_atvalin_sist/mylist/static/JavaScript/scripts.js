@@ -2,42 +2,45 @@
  * Created by edgarsavotins on 16/05/17.
  */
 
-$(document).ready(function () {
+$(function(){
     $('.stop-propagation').on('click', function (e) {
         e.stopPropagation();
     });
+});
 
-    $(function () {
-        var date_input=$('input[name="datums_no"]');
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        var options={
-        format: 'yyyy-mm-dd',
-        container: container,
-        startDate: "today",
-        maxViewMode: 0,
-        language: "lv",
-        daysOfWeekHighlighted: "0,6",
-        todayHighlight: true,
-        autoclose: true,
-        };
-        date_input.datepicker(options);
-    });
+$(function(){
+    $('.default-hide').hide();
+});
 
-    $(function () {
-        var date_input=$('input[name="datums_lidz"]');
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        var options={
-        format: 'yyyy-mm-dd',
-        container: container,
-        startDate: "today",
-        maxViewMode: 0,
-        language: "lv",
-        daysOfWeekHighlighted: "0,6",
-        todayHighlight: true,
-        autoclose: true,
-        };
-        date_input.datepicker(options);
-    });
+$(document).ready(function () {
+
+    var date_input1=$('input[name="datums_no"]');
+    var container1=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+    var options1={
+    format: 'yyyy-mm-dd',
+    container: container1,
+    startDate: "today",
+    maxViewMode: 0,
+    language: "lv",
+    daysOfWeekHighlighted: "0,6",
+    todayHighlight: true,
+    autoclose: true
+    };
+    date_input1.datepicker(options1);
+
+    var date_input2=$('input[name="datums_lidz"]');
+    var container2=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+    var options2={
+    format: 'yyyy-mm-dd',
+    container: container2,
+    startDate: "today",
+    maxViewMode: 0,
+    language: "lv",
+    daysOfWeekHighlighted: "0,6",
+    todayHighlight: true,
+    autoclose: true
+    };
+    date_input2.datepicker(options2);
 
     $(document).on('click', 'th.datepicker-switch, span.month, td.day, th.next, th.prev, th.switch, span.year', function (e) {
         e.stopPropagation();
