@@ -27,7 +27,7 @@ def index(request):
 
 
 
-        ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user).order_by('datums_no')
+        ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user).order_by('-datums_no')
 
         paginator_kopejais = Paginator(ieraksti_saraksts, 10)  # Show 25 contacts per page
 
@@ -44,7 +44,7 @@ def index(request):
 
 
 
-        atvalinajumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='atvalinajums').order_by('datums_no')
+        atvalinajumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='atvalinajums').order_by('-datums_no')
 
         paginator_atvalinajums = Paginator(atvalinajumu_ieraksti_saraksts, 5)  # Show 25 contacts per page
 
@@ -61,7 +61,7 @@ def index(request):
 
 
 
-        komandejumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').order_by('datums_no')
+        komandejumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').order_by('-datums_no')
 
         paginator_komandejums = Paginator(komandejumu_ieraksti_saraksts, 5)  # Show 25 contacts per page
 
@@ -82,11 +82,35 @@ def index(request):
         }
         return render(request, 'mylist/index.html', context)
 
+
+
+
+
+
     if request.method=='POST':
 
-        online_user = request.user
+        merkis = request.POST.get("merkis")
+        datums_no = request.POST.get("datums_no")
+        datums_lidz = request.POST.get("datums_lidz")
+        vieta = request.POST.get("vieta")
 
-        ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user).order_by('datums_no')
+        online_user = request.user
+        all_users = User.objects.all()
+
+        if merkis:
+            object = Ieraksts.objects.create(lietotajs=online_user, merkis=merkis, datums_no=datums_no,
+                                             datums_lidz=datums_lidz, vieta=vieta)
+
+            if len(request.FILES) != 0:
+                iesniegums = request.FILES['iesniegums']
+
+                fs = FileSystemStorage()
+                fs.save(iesniegums.name, iesniegums)
+                Atvalinajums.objects.create(ieraksts=object, iesniegums=iesniegums)
+
+
+
+        ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user).order_by('-datums_no')
 
         paginator_kopejais = Paginator(ieraksti_saraksts, 10)  # Show 25 contacts per page
 
@@ -103,7 +127,7 @@ def index(request):
 
 
 
-        atvalinajumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='atvalinajums').order_by('datums_no')
+        atvalinajumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='atvalinajums').order_by('-datums_no')
 
         paginator_atvalinajums = Paginator(atvalinajumu_ieraksti_saraksts, 5)  # Show 25 contacts per page
 
@@ -120,7 +144,7 @@ def index(request):
 
 
 
-        komandejumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').order_by('datums_no')
+        komandejumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').order_by('-datums_no')
 
         paginator_komandejums = Paginator(komandejumu_ieraksti_saraksts, 5)  # Show 25 contacts per page
 
@@ -133,24 +157,6 @@ def index(request):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             komandejumu_ieraksti = paginator_komandejums.page(paginator_komandejums.num_pages)
-
-        merkis=request.POST.get("merkis")
-        datums_no = request.POST.get("datums_no")
-        datums_lidz = request.POST.get("datums_lidz")
-        vieta = request.POST.get("vieta")
-
-        online_user = request.user
-        all_users = User.objects.all()
-
-        if merkis:
-            object = Ieraksts.objects.create(lietotajs=online_user, merkis=merkis, datums_no=datums_no, datums_lidz=datums_lidz, vieta=vieta)
-
-            if len(request.FILES) != 0:
-                iesniegums = request.FILES['iesniegums']
-
-                fs = FileSystemStorage()
-                fs.save(iesniegums.name, iesniegums)
-                Atvalinajums.objects.create(ieraksts=object, iesniegums=iesniegums)
 
         context = {
             'ieraksti': ieraksti,

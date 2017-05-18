@@ -28,8 +28,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mylist/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="198" column="0" lean-forward="true" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+            <state relative-caret-position="1515">
+              <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -41,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/login.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="816">
-              <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -51,7 +51,7 @@
         <entry file="file://$PROJECT_DIR$/mylist/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+              <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -77,42 +77,28 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mylist/static/mylist/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="9" column="7" lean-forward="false" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+            <state relative-caret-position="291">
+              <caret line="65" column="17" lean-forward="false" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="77" column="73" lean-forward="false" selection-start-line="77" selection-start-column="73" selection-end-line="77" selection-end-column="73" />
-              <folding>
-                <element signature="e#295#301#0#HTML" expanded="true" />
-                <element signature="e#5831#5838#0#HTML" expanded="true" />
-                <element signature="e#5946#5953#0#HTML" expanded="true" />
-                <element signature="e#6419#6426#0#HTML" expanded="true" />
-                <element signature="e#6534#6541#0#HTML" expanded="true" />
-                <element signature="e#8378#8385#0#HTML" expanded="true" />
-                <element signature="e#8493#8500#0#HTML" expanded="true" />
-                <element signature="e#9005#9012#0#HTML" expanded="true" />
-                <element signature="e#9120#9127#0#HTML" expanded="true" />
-                <element signature="e#10570#10577#0#HTML" expanded="true" />
-                <element signature="e#10685#10692#0#HTML" expanded="true" />
-                <element signature="e#11194#11201#0#HTML" expanded="true" />
-                <element signature="e#11309#11316#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scripts.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="scripts.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mylist/static/JavaScript/scripts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="24" column="3" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+            <state relative-caret-position="510">
+              <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding>
                 <element signature="e#0#48#0" expanded="false" />
               </folding>
@@ -123,8 +109,8 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="14" lean-forward="true" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+            <state relative-caret-position="300">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -146,6 +132,7 @@
       <find>filter</find>
       <find>form-control</find>
       <find>twitt</find>
+      <find>radiu</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -154,17 +141,17 @@
         <option value="$PROJECT_DIR$/mylist/admin.py" />
         <option value="$PROJECT_DIR$/mylist/models.py" />
         <option value="$PROJECT_DIR$/mylist/static/mylist/scripts.js" />
-        <option value="$PROJECT_DIR$/mylist/static/mylist/style.css" />
         <option value="$PROJECT_DIR$/komand_atvalin_sist/settings.py" />
         <option value="$PROJECT_DIR$/komand_atvalin_sist/urls.py" />
         <option value="$PROJECT_DIR$/mylist/templates/mylist/all.html" />
         <option value="$PROJECT_DIR$/mylist/templates/mylist/new_template.html" />
         <option value="$PROJECT_DIR$/mylist/urls.py" />
-        <option value="$PROJECT_DIR$/mylist/views.py" />
         <option value="$PROJECT_DIR$/mylist/templates/mylist/login.html" />
-        <option value="$PROJECT_DIR$/mylist/templates/mylist/index.html" />
-        <option value="$PROJECT_DIR$/mylist/templates/mylist/base.html" />
+        <option value="$PROJECT_DIR$/mylist/views.py" />
         <option value="$PROJECT_DIR$/mylist/static/JavaScript/scripts.js" />
+        <option value="$PROJECT_DIR$/mylist/static/mylist/style.css" />
+        <option value="$PROJECT_DIR$/mylist/templates/mylist/base.html" />
+        <option value="$PROJECT_DIR$/mylist/templates/mylist/index.html" />
       </list>
     </option>
   </component>
@@ -302,58 +289,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="datepicker" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="komand_atvalin_sist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="komand_atvalin_sist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mylist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="datepicker" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="komand_atvalin_sist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="komand_atvalin_sist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mylist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="datepicker" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -776,21 +711,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="5" lean-forward="false" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-          <folding>
-            <element signature="e#295#301#0#HTML" expanded="true" />
-            <element signature="e#5831#5838#0#HTML" expanded="true" />
-            <element signature="e#5946#5953#0#HTML" expanded="true" />
-            <element signature="e#6419#6426#0#HTML" expanded="true" />
-            <element signature="e#6534#6541#0#HTML" expanded="true" />
-            <element signature="e#8378#8385#0#HTML" expanded="true" />
-            <element signature="e#8493#8500#0#HTML" expanded="true" />
-            <element signature="e#9005#9012#0#HTML" expanded="true" />
-            <element signature="e#9120#9127#0#HTML" expanded="true" />
-            <element signature="e#10570#10577#0#HTML" expanded="true" />
-            <element signature="e#10685#10692#0#HTML" expanded="true" />
-            <element signature="e#11194#11201#0#HTML" expanded="true" />
-            <element signature="e#11309#11316#0#HTML" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -824,21 +745,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="5" lean-forward="false" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-          <folding>
-            <element signature="e#295#301#0#HTML" expanded="true" />
-            <element signature="e#5831#5838#0#HTML" expanded="true" />
-            <element signature="e#5946#5953#0#HTML" expanded="true" />
-            <element signature="e#6419#6426#0#HTML" expanded="true" />
-            <element signature="e#6534#6541#0#HTML" expanded="true" />
-            <element signature="e#8378#8385#0#HTML" expanded="true" />
-            <element signature="e#8493#8500#0#HTML" expanded="true" />
-            <element signature="e#9005#9012#0#HTML" expanded="true" />
-            <element signature="e#9120#9127#0#HTML" expanded="true" />
-            <element signature="e#10570#10577#0#HTML" expanded="true" />
-            <element signature="e#10685#10692#0#HTML" expanded="true" />
-            <element signature="e#11194#11201#0#HTML" expanded="true" />
-            <element signature="e#11309#11316#0#HTML" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -872,21 +779,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-          <folding>
-            <element signature="e#295#301#0#HTML" expanded="true" />
-            <element signature="e#5831#5838#0#HTML" expanded="true" />
-            <element signature="e#5946#5953#0#HTML" expanded="true" />
-            <element signature="e#6419#6426#0#HTML" expanded="true" />
-            <element signature="e#6534#6541#0#HTML" expanded="true" />
-            <element signature="e#8378#8385#0#HTML" expanded="true" />
-            <element signature="e#8493#8500#0#HTML" expanded="true" />
-            <element signature="e#9005#9012#0#HTML" expanded="true" />
-            <element signature="e#9120#9127#0#HTML" expanded="true" />
-            <element signature="e#10570#10577#0#HTML" expanded="true" />
-            <element signature="e#10685#10692#0#HTML" expanded="true" />
-            <element signature="e#11194#11201#0#HTML" expanded="true" />
-            <element signature="e#11309#11316#0#HTML" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -971,9 +864,27 @@
     <entry file="file://$PROJECT_DIR$/mylist/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+          <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mylist/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1515">
+          <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -991,69 +902,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mylist/views.py">
+    <entry file="file://$PROJECT_DIR$/mylist/static/JavaScript/scripts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="198" column="0" lean-forward="true" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+        <state relative-caret-position="510">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#0#48#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mylist/static/mylist/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="9" column="7" lean-forward="false" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+        <state relative-caret-position="291">
+          <caret line="65" column="17" lean-forward="false" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="77" column="73" lean-forward="false" selection-start-line="77" selection-start-column="73" selection-end-line="77" selection-end-column="73" />
-          <folding>
-            <element signature="e#295#301#0#HTML" expanded="true" />
-            <element signature="e#5831#5838#0#HTML" expanded="true" />
-            <element signature="e#5946#5953#0#HTML" expanded="true" />
-            <element signature="e#6419#6426#0#HTML" expanded="true" />
-            <element signature="e#6534#6541#0#HTML" expanded="true" />
-            <element signature="e#8378#8385#0#HTML" expanded="true" />
-            <element signature="e#8493#8500#0#HTML" expanded="true" />
-            <element signature="e#9005#9012#0#HTML" expanded="true" />
-            <element signature="e#9120#9127#0#HTML" expanded="true" />
-            <element signature="e#10570#10577#0#HTML" expanded="true" />
-            <element signature="e#10685#10692#0#HTML" expanded="true" />
-            <element signature="e#11194#11201#0#HTML" expanded="true" />
-            <element signature="e#11309#11316#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="14" lean-forward="true" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+        <state relative-caret-position="105">
+          <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mylist/static/JavaScript/scripts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="24" column="3" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#48#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>

@@ -4,15 +4,16 @@
 {% block content %}
 
 <body>
+
+    <div class="pull-right">
+        <a href="{% url 'mylist:logout' %}">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
+            Izrakstīties
+        </a>
+    </div>
+
     <div class="container">
         <div class="box">
-
-            <div>
-                <a href="{% url 'mylist:logout' %}">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
-                    Izrakstīties
-                </a>
-            </div>
 
             <div class="row justify-content-md-center" id="navigation">
 
@@ -68,26 +69,27 @@
                             </div>
 
 
-                            <div id="datepickers">
+                            <div class="row" id="datepickers">
                                 <div id="start-date">
                                     No<br>
-                                    <input class="form-control datepicker" id="date" name="datums_no" type="text"/>
+                                    <input class="form-control datepicker" id="date" name="datums_no" type="text" style="width:100px; height:20px"/>
                                 </div>
                                 <div id="end-date">
                                     Līdz<br>
-                                    <input class="form-control datepicker" id="date" name="datums_lidz" type="text"/>
+                                    <input class="form-control datepicker" id="date" name="datums_lidz" type="text" style="width:100px; height:20px"/>
                                 </div>
                             </div>
 
                             <div id="myform-vieta">
                                 Vieta<br>
-                                <input type="text" name="vieta">
+                                <input id="input-vieta" type="text" name="vieta">
                             </div>
                             <div class="default-hide" id="myform-iesniegums">
+                                Iesniegums<br>
                                 <input type="file" id="file" name="iesniegums">
                             </div>
 
-                            <input class="btn submit pull-right" type="submit" value="save">
+                            <input class="btn submit pull-right" type="submit" value="Nosūtīt">
                         </form>
                     </div>
                 </div>
