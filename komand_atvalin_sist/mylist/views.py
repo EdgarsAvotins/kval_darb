@@ -111,15 +111,14 @@ def index(request):
         online_user = request.user
         all_users = User.objects.all()
 
+        files = request.FILES
+
         if merkis:
             object = Ieraksts.objects.create(lietotajs=online_user, merkis=merkis, datums_no=datums_no,
                                              datums_lidz=datums_lidz, vieta=vieta)
 
-            if len(request.FILES) != 0 and merkis == 'atvalinajums':
+            if 'iesniegums' in files and merkis == 'atvalinajums':
                 iesniegums = request.FILES['iesniegums']
-
-                # fs = FileSystemStorage()
-                # fs.save(iesniegums.name, iesniegums)
                 Atvalinajums.objects.create(ieraksts=object, iesniegums=iesniegums)
 
         elif iesniegums_labot_id:
@@ -130,23 +129,43 @@ def index(request):
             pareizais_atvalinajums.iesniegums = iesniegums_fails
             pareizais_atvalinajums.save()
 
-        elif atskaite_pievienot_id:
-            atskaite_fails = request.FILES['atskaite']
 
+
+        elif atskaite_pievienot_id:
             pareizais_ieraksts = Ieraksts.objects.get(id=atskaite_pievienot_id)
-            #
-            # fs = FileSystemStorage()
-            # fs.save(atskaite_fails.name, atskaite_fails)
-            Komandejums.objects.create(ieraksts=pareizais_ieraksts, atskaite=atskaite_fails)
+
+            if 'ceks' in files and 'atskaite' in files:
+                atskaite_fails = request.FILES['atskaite']
+                ceks_fails = request.FILES['ceks']
+                Komandejums.objects.create(ieraksts=pareizais_ieraksts, atskaite=atskaite_fails, ceks=ceks_fails)
+
+            elif 'atskaite' in files:
+                atskaite_fails = request.FILES['atskaite']
+                Komandejums.objects.create(ieraksts=pareizais_ieraksts, atskaite=atskaite_fails)
+
 
         elif atskaite_labot_id:
 
-            atskaite_fails = request.FILES['atskaite']
-
             pareizais_ieraksts = Ieraksts.objects.get(id=atskaite_labot_id)
             pareizais_komandejums = Komandejums.objects.get(ieraksts=pareizais_ieraksts)
-            pareizais_komandejums.atskaite = atskaite_fails
-            pareizais_komandejums.save()
+
+            if 'ceks' and 'atskaite' in files:
+                atskaite_fails = request.FILES['atskaite']
+                ceks_fails = request.FILES['ceks']
+                pareizais_komandejums.atskaite = atskaite_fails
+                pareizais_komandejums.ceks = ceks_fails
+                pareizais_komandejums.save()
+
+            elif 'atskaite' in files:
+                atskaite_fails = request.FILES['atskaite']
+                pareizais_komandejums.atskaite = atskaite_fails
+                pareizais_komandejums.save()
+
+            elif 'ceks' in files:
+                ceks_fails = request.FILES['ceks']
+                pareizais_komandejums.ceks = ceks_fails
+                pareizais_komandejums.save()
+
 
 
 

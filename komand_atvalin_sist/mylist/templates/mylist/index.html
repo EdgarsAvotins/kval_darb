@@ -167,7 +167,12 @@
                                                     <form method='POST' enctype='multipart/form-data' role="form" action="/mylist/">{% csrf_token %}
                                                         <div class="upload-title">Augšuplādēt atskaiti</div>
                                                         <input type="hidden" name="atskaite_pievienot" value="{{ ieraksts.id }}">
-                                                        <input type="file" id="file" name="atskaite">
+                                                        <input type="file" id="file" required="required" name="atskaite">
+                                                        <div class="checkbox">
+                                                          <label><input type="checkbox" data-toggle="buttons" value="" id="enable-upload1">Vēlos pievienot čekus</label>
+                                                        </div>
+                                                        <div class="upload-title">Augšuplādēt čekus (arhivēt, ja vairāki)</div>
+                                                        <input type="file" disabled="disabled" id="ceks-upload1" name="ceks">
                                                         <input class="btn submit pull-right" type="submit" value="Nosūtīt">
                                                     </form>
                                                 </div>
@@ -191,6 +196,11 @@
                                                         <div class="upload-title">Augšuplādēt atskaiti</div>
                                                         <input type="hidden" name="atskaite_labot" value="{{ ieraksts.id }}">
                                                         <input type="file" id="file" name="atskaite">
+                                                        <div class="checkbox">
+                                                          <label><input type="checkbox" data-toggle="buttons" value="" id="enable-upload2">Vēlos pievienot čekus</label>
+                                                        </div>
+                                                        <div class="upload-title">Augšuplādēt čekus (arhivēt, ja vairāki)</div>
+                                                        <input type="file" disabled="disabled" id="ceks-upload2" name="ceks">
                                                         <input class="btn submit pull-right" type="submit" value="Nosūtīt">
                                                     </form>
                                                 </div>

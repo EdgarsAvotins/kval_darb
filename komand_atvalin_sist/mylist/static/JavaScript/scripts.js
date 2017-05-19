@@ -34,3 +34,23 @@ $(function(){
     $('#atvalinajums-radio').click(function(){ $('#myform-iesniegums').show(); $('#myform-vieta').hide(); })
 
 });
+
+$( 'body' ).on( 'click', '#enable-upload', function() {
+    if( $(this).attr('data-toggle') != 'button' ) { $(this).toggleClass('active');      }
+    if( $(this).hasClass( 'active' ) == true )    { $("input").prop('disabled', false); }
+    if( $(this).hasClass( 'active' ) == false )   { $("input").prop('disabled', true);  }
+});
+
+$(function(){
+    $('#enable-upload1').on('click', function () {
+        if ($(this).is(':checked')) {$('#ceks-upload1').prop('disabled', false);}
+        else {$('#ceks-upload1').prop('disabled', true);}
+    });
+});
+
+$(function(){
+    $('#enable-upload2').on('click', function () {
+        if ($(this).is(':checked')) {$('#ceks-upload2').prop('disabled', false);}
+        else {$('#ceks-upload2').prop('disabled', true);}
+    });
+});

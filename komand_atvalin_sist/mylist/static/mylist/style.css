@@ -231,17 +231,17 @@ body{
 }
 
 .atskaite-modal .modal-body .upload-title{
-    padding-bottom: 2px;
+    padding-bottom: 0px;
 }
 
 .atskaite-modal .modal-body form{
     color: #444c63;
     font-family: proxima-nova, sans-serif;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .atskaite-modal .modal-body .submit{
-    margin-top: 70px;
+    margin-top: 0px;
 }
 
 
