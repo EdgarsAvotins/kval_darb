@@ -1,15 +1,19 @@
 {% extends "mylist/base.html" %}
 {% load staticfiles %}
+{% load custom_tags %}
 
 {% block content %}
 
 <body>
 
-    <div class="pull-right">
-        <a href="{% url 'mylist:logout' %}">
-            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
-            Izrakstīties
-        </a>
+    <div class="container">
+        <div class="box">
+            <div class="pull-right">
+                <a href="{% url 'mylist:logout' %}" class="btn btn-default">
+                    Izrakstīties
+                </a>
+            </div>
+        </div>
     </div>
 
     <div class="container">
@@ -17,7 +21,7 @@
 
             <div class="row justify-content-md-center" id="navigation">
 
-                <div class="col col-lg-2">
+                <div class="col col-lg-2 active">
                     <b><a class="link" href="{% url 'mylist:index' %}"> Mans saraksts</a> </b>
                 </div>
                 <div class="col col-lg-1">
@@ -95,7 +99,7 @@
                 </div>
             </div>
 
-            <table class="table">
+            <table class="table" id="table1">
 
                 <thead>
                     <tr class="tabulas-galva row-header">
@@ -121,7 +125,28 @@
                         <td>{{ ieraksts.vieta }}</td>
                         <td>{{ ieraksts.datums_no|date:"d.m.Y" }}</td>
                         <td>{{ ieraksts.datums_lidz|date:"d.m.Y"}}</td>
-                        <td></td>
+
+
+                        {% if ieraksts.statuss == True %}
+                            <td class="pull-right"><span class="glyphicon glyphicon-ok"></span>Viss kārtībā!</td>
+                        {% elif ieraksts.statuss == False and ieraksts.merkis == 'atvalinajums' %}
+                            <td class="pull-right">Labot iesniegumu</td>
+                        {% elif ieraksts.statuss == False and ieraksts.merkis == 'komandejums' %}
+{#                            {% with found=0 %}#}
+{#                            {% for kom in komandejumu_failu_saraksts %}#}
+{#                                {% if kom.ieraksts.id == ieraksts.id and found == 0 %}#}
+{#                                    {% with found='yes' %}#}
+{#                                {% endif %}#}
+{#                            {% endfor %}#}
+
+                            {% if ieraksts|is_found:komandejumu_failu_saraksts == False %}
+                                <td class="pull-right">Pievienot atskaiti</td>
+                            {% else %}
+                                <td class="pull-right">Labot atskaiti</td>
+                            {% endif %}
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                     </tr>
                 </tbody>
                 {% endfor %}
@@ -270,8 +295,8 @@
 
         </div>
     </div>
-
-{{ uploaded_file_url }}
+{{ online_user }}
+{{ komandejumu_failu_saraksts }}
 
 </body>
 

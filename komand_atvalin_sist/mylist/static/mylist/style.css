@@ -19,6 +19,38 @@ body{
     border-radius: 0px;
 }
 
+.btn-default:hover{
+    background-color: #e28383;
+}
+
+#navigation{
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+#navigation div{
+    padding: 0 20px 0 20px;
+}
+
+#navigation div.active{
+    border-bottom: solid 2.7px #29abe2;
+}
+
+#navigation div a{
+    text-align: center;
+    color: #9d9d9d;
+}
+
+#navigation div a:hover{
+    text-decoration: none;
+    color: #000000
+}
+
+#navigation div.active a{
+    font-weight: bold;
+    color: #000000;
+}
+
 .row-vacation{
     background-color: #e2edf7;
 }
@@ -87,6 +119,9 @@ body{
 
 .tabulas-galva {
     font-size: 10px;
+}
+
+#table1 td.pull-right{
 
 }
 
@@ -115,11 +150,6 @@ body{
     margin-right:15%;
 }
 
-#navigation{
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
 #add-entry-popup{
     position: absolute;
 }
@@ -128,4 +158,8 @@ input[type="radio"] {
     -webkit-appearance: checkbox; /* Chrome, Safari, Opera */
     -moz-appearance: checkbox;    /* Firefox */
     -ms-appearance: checkbox;     /* not currently supported */
+}
+
+#login-form{
+    background-color: #ffffff;
 }

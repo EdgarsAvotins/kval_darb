@@ -75,10 +75,20 @@ def index(request):
             # If page is out of range (e.g. 9999), deliver last page of results.
             komandejumu_ieraksti = paginator_komandejums.page(paginator_komandejums.num_pages)
 
+        ieraksti_id = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').values_list('id', flat=True)
+        komandejumu_failu_saraksts = Komandejums.objects.filter(ieraksts__id__in=ieraksti_id)
+        # [
+        #     Komandejums.objects.filter(ieraksts__id=c)[0] for c in ieraksti_id
+        #     ]
+
+
+
         context = {
             'ieraksti' : ieraksti,
             'atvalinajumu_ieraksti': atvalinajumu_ieraksti,
             'komandejumu_ieraksti': komandejumu_ieraksti,
+            'online_user': online_user,
+            'komandejumu_failu_saraksts': komandejumu_failu_saraksts,
         }
         return render(request, 'mylist/index.html', context)
 

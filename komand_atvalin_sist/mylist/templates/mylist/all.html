@@ -4,6 +4,17 @@
 {% block content %}
 
 <body>
+
+    <div class="container">
+        <div class="box">
+            <div class="pull-right">
+                <a href="{% url 'mylist:logout' %}" class="btn btn-default">
+                    Izrakstīties
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="box">
             <div class="row justify-content-md-center" id="navigation">
@@ -11,7 +22,7 @@
                 <div class="col col-lg-2">
                     <b><a class="link" href="{% url 'mylist:index' %}"> Mans saraksts</a> </b>
                 </div>
-                <div class="col col-lg-1">
+                <div class="col col-lg-1 active">
                     <b><a class="link" href="{% url 'mylist:all' %}"> Visi</a> </b>
                 </div>
                 <div class="col col-lg-2">
