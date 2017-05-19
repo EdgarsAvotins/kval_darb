@@ -30,7 +30,7 @@ class Ieraksts(models.Model):
 class Komandejums(models.Model):
     ieraksts = models.ForeignKey('Ieraksts', on_delete=models.CASCADE)
     atskaite = models.FileField()
-    ceks = models.FileField()
+    ceks = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return str(self.ieraksts)
