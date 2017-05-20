@@ -41,3 +41,10 @@ class Atvalinajums(models.Model):
 
     def __str__(self):
         return str(self.ieraksts)
+
+class SaglabatieLietotaji(models.Model):
+    lietotajs_pats = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='lietotajs_pats')
+    saglabatais_lietotajs = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='saglabatais_lietotajs')
+
+    def __str__(self):
+        return str(self.lietotajs_pats) + ' - ' + str(self.saglabatais_lietotajs)

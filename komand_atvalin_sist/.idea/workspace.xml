@@ -15,40 +15,6 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mylist/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mylist/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-945">
-              <caret line="120" column="56" lean-forward="true" selection-start-line="120" selection-start-column="56" selection-end-line="120" selection-end-column="56" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mylist/static/mylist/login.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="1" lean-forward="true" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/login.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -59,17 +25,58 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="all.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/all.html">
+      <file leaf-file-name="login.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mylist/static/mylist/login.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="10" lean-forward="false" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+            <state relative-caret-position="375">
+              <caret line="25" column="1" lean-forward="false" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mylist/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="690">
+              <caret line="46" column="97" lean-forward="false" selection-start-line="46" selection-start-column="97" selection-end-line="46" selection-end-column="97" />
               <folding>
-                <element signature="e#2727#2734#0#HTML" expanded="true" />
-                <element signature="e#2842#2849#0#HTML" expanded="true" />
-                <element signature="e#3315#3322#0#HTML" expanded="true" />
-                <element signature="e#3430#3437#0#HTML" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mylist/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="765">
+              <caret line="264" column="0" lean-forward="true" selection-start-line="264" selection-start-column="0" selection-end-line="264" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom_tags.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mylist/templatetags/custom_tags.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="31" column="12" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mylist/static/mylist/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="576">
+              <caret line="212" column="0" lean-forward="false" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -86,47 +93,44 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mylist/static/JavaScript/login.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="45" column="3" lean-forward="true" selection-start-line="45" selection-start-column="3" selection-end-line="45" selection-end-column="3" />
-              <folding>
-                <element signature="e#0#48#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mylist/static/mylist/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="786">
-              <caret line="239" column="17" lean-forward="false" selection-start-line="239" selection-start-column="17" selection-end-line="239" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+            <state relative-caret-position="600">
+              <caret line="263" column="88" lean-forward="false" selection-start-line="263" selection-start-column="88" selection-end-line="263" selection-end-column="88" />
               <folding>
-                <element signature="e#3574#3606#0#HTML" expanded="true" />
+                <element signature="e#3597#3629#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="custom_tags.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mylist/templatetags/custom_tags.py">
+      <file leaf-file-name="all.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/all.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="195">
+              <caret line="13" column="18" lean-forward="true" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
               <folding>
-                <element signature="e#0#27#0" expanded="true" />
+                <element signature="e#2665#2672#0#HTML" expanded="true" />
+                <element signature="e#2780#2787#0#HTML" expanded="true" />
+                <element signature="e#3168#3175#0#HTML" expanded="true" />
+                <element signature="e#3283#3290#0#HTML" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="saved.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/saved.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="20" column="11" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+              <folding>
+                <element signature="e#386#403#0#HTML" expanded="true" />
+                <element signature="e#2887#2894#0#HTML" expanded="true" />
+                <element signature="e#3002#3009#0#HTML" expanded="true" />
+                <element signature="e#3390#3397#0#HTML" expanded="true" />
+                <element signature="e#3505#3512#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -137,9 +141,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -162,20 +166,21 @@
         <option value="$PROJECT_DIR$/mylist/static/mylist/scripts.js" />
         <option value="$PROJECT_DIR$/komand_atvalin_sist/urls.py" />
         <option value="$PROJECT_DIR$/mylist/templates/mylist/new_template.html" />
-        <option value="$PROJECT_DIR$/mylist/urls.py" />
         <option value="$PROJECT_DIR$/mylist/templates/mylist/base.html" />
         <option value="$PROJECT_DIR$/mylist/static/JavaScript/login.css" />
         <option value="$PROJECT_DIR$/mylist/static/JavaScript/login.js" />
         <option value="$PROJECT_DIR$/mylist/static/mylist/login.css" />
-        <option value="$PROJECT_DIR$/mylist/templates/mylist/all.html" />
         <option value="$PROJECT_DIR$/mylist/templates/mylist/login.html" />
         <option value="$PROJECT_DIR$/komand_atvalin_sist/settings.py" />
-        <option value="$PROJECT_DIR$/mylist/templatetags/custom_tags.py" />
-        <option value="$PROJECT_DIR$/mylist/models.py" />
-        <option value="$PROJECT_DIR$/mylist/static/mylist/style.css" />
         <option value="$PROJECT_DIR$/mylist/static/JavaScript/scripts.js" />
-        <option value="$PROJECT_DIR$/mylist/templates/mylist/index.html" />
+        <option value="$PROJECT_DIR$/mylist/static/mylist/style.css" />
+        <option value="$PROJECT_DIR$/mylist/urls.py" />
         <option value="$PROJECT_DIR$/mylist/views.py" />
+        <option value="$PROJECT_DIR$/mylist/models.py" />
+        <option value="$PROJECT_DIR$/mylist/templates/mylist/all.html" />
+        <option value="$PROJECT_DIR$/mylist/templates/mylist/saved.html" />
+        <option value="$PROJECT_DIR$/mylist/templates/mylist/index.html" />
+        <option value="$PROJECT_DIR$/mylist/templatetags/custom_tags.py" />
       </list>
     </option>
   </component>
@@ -758,7 +763,7 @@
         <state relative-caret-position="315">
           <caret line="21" column="5" lean-forward="false" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
           <folding>
-            <element signature="e#3574#3606#0#HTML" expanded="true" />
+            <element signature="e#3597#3629#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -794,7 +799,7 @@
         <state relative-caret-position="315">
           <caret line="21" column="5" lean-forward="false" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
           <folding>
-            <element signature="e#3574#3606#0#HTML" expanded="true" />
+            <element signature="e#3597#3629#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -830,7 +835,7 @@
         <state relative-caret-position="315">
           <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
           <folding>
-            <element signature="e#3574#3606#0#HTML" expanded="true" />
+            <element signature="e#3597#3629#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -890,16 +895,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mylist/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mylist/templatetags/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -932,41 +927,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/all.html">
+    <entry file="file://$PROJECT_DIR$/mylist/static/JavaScript/login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="10" lean-forward="false" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+        <state relative-caret-position="645">
+          <caret line="45" column="3" lean-forward="false" selection-start-line="45" selection-start-column="3" selection-end-line="45" selection-end-column="3" />
           <folding>
-            <element signature="e#2727#2734#0#HTML" expanded="true" />
-            <element signature="e#2842#2849#0#HTML" expanded="true" />
-            <element signature="e#3315#3322#0#HTML" expanded="true" />
-            <element signature="e#3430#3437#0#HTML" expanded="true" />
+            <element signature="e#0#48#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mylist/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mylist/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="264" column="0" lean-forward="true" selection-start-line="264" selection-start-column="0" selection-end-line="264" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mylist/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state relative-caret-position="690">
+          <caret line="46" column="97" lean-forward="false" selection-start-line="46" selection-start-column="97" selection-end-line="46" selection-end-column="97" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mylist/static/mylist/style.css">
+    <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/all.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="786">
-          <caret line="239" column="17" lean-forward="false" selection-start-line="239" selection-start-column="17" selection-end-line="239" selection-end-column="17" />
-          <folding />
+        <state relative-caret-position="195">
+          <caret line="13" column="18" lean-forward="true" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+          <folding>
+            <element signature="e#2665#2672#0#HTML" expanded="true" />
+            <element signature="e#2780#2787#0#HTML" expanded="true" />
+            <element signature="e#3168#3175#0#HTML" expanded="true" />
+            <element signature="e#3283#3290#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/saved.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="20" column="11" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+          <folding>
+            <element signature="e#386#403#0#HTML" expanded="true" />
+            <element signature="e#2887#2894#0#HTML" expanded="true" />
+            <element signature="e#3002#3009#0#HTML" expanded="true" />
+            <element signature="e#3390#3397#0#HTML" expanded="true" />
+            <element signature="e#3505#3512#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mylist/static/mylist/login.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
-          <caret line="25" column="1" lean-forward="true" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+          <caret line="25" column="1" lean-forward="false" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -975,6 +1004,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="591">
           <caret line="131" column="60" lean-forward="false" selection-start-line="131" selection-start-column="33" selection-end-line="131" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mylist/static/mylist/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="212" column="0" lean-forward="false" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -989,42 +1026,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mylist/static/JavaScript/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="45" column="3" lean-forward="true" selection-start-line="45" selection-start-column="3" selection-end-line="45" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#48#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mylist/templates/mylist/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+        <state relative-caret-position="600">
+          <caret line="263" column="88" lean-forward="false" selection-start-line="263" selection-start-column="88" selection-end-line="263" selection-end-column="88" />
           <folding>
-            <element signature="e#3574#3606#0#HTML" expanded="true" />
+            <element signature="e#3597#3629#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mylist/templatetags/custom_tags.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state relative-caret-position="465">
+          <caret line="31" column="12" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mylist/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-945">
-          <caret line="120" column="56" lean-forward="true" selection-start-line="120" selection-start-column="56" selection-end-line="120" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -77,10 +77,6 @@ def index(request):
 
         ieraksti_id = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').values_list('id', flat=True)
         komandejumu_failu_saraksts = Komandejums.objects.filter(ieraksts__id__in=ieraksti_id)
-        # [
-        #     Komandejums.objects.filter(ieraksts__id=c)[0] for c in ieraksti_id
-        #     ]
-
 
 
         context = {
@@ -217,6 +213,7 @@ def index(request):
             # If page is out of range (e.g. 9999), deliver last page of results.
             komandejumu_ieraksti = paginator_komandejums.page(paginator_komandejums.num_pages)
 
+
         context = {
             'ieraksti': ieraksti,
             'atvalinajumu_ieraksti': atvalinajumu_ieraksti,
@@ -237,7 +234,7 @@ def all(request):
         # ieraksti_saraksts = Ieraksts.objects.all().order_by('datums_no')
 
         now = datetime.date.today()
-        ieraksti_saraksts = Ieraksts.objects.filter(datums_no__lte=now, datums_lidz__gte=now).order_by('datums_no')
+        ieraksti_saraksts = Ieraksts.objects.filter(datums_no__lte=now, datums_lidz__gte=now).order_by('lietotajs')
 
         paginator = Paginator(ieraksti_saraksts, 10)  # Show 25 contacts per page
 
@@ -255,6 +252,16 @@ def all(request):
             'ieraksti': ieraksti,
         }
         return render(request, 'mylist/all.html', context)
+
+def saved(request):
+    if request.method == 'GET':
+
+        ieraksti = Ieraksts.objects.all().order_by('datums_no')
+
+        context = {
+            'ieraksti': ieraksti,
+        }
+        return render(request, 'mylist/saved.html', context)
 
 class LogoutView(RedirectView):
     """

@@ -28,7 +28,7 @@
                     <b><a class="link" href="{% url 'mylist:all' %}"> Visi</a> </b>
                 </div>
                 <div class="col col-lg-2">
-                    <b><a class="link" href="#"> Saglabātie</a> </b>
+                    <b><a class="link" href="{% url 'mylist:saved' %}"> Saglabātie</a> </b>
                 </div>
 
             </div>
@@ -261,7 +261,7 @@
               <div class="row">
             <div class="col">
               <span class="atvalinajumi">Atvaļinājumi</span>
-                <span class="dienas">Pieejamās dienas: <b>23</b></span>
+                <span class="dienas">Pieejamās dienas: <b>{{ ieraksti|vacation_days_left }}</b></span>
 
 
             <table class="table">
@@ -277,7 +277,7 @@
                   <tr class="row-business-travel">
                     <td>{{ ieraksts.datums_no|date:"d.m.Y" }}</td>
                     <td>{{ ieraksts.datums_lidz|date:"d.m.Y" }}</td>
-                    <td>{{ ieraksts.datums_no|timesince:ieraksts.datums_lidz}}</td>
+                    <td>{{ ieraksts.datums_no|days_between:ieraksts.datums_lidz}}</td>
                   </tr>
                 </tbody>
                 {% endfor %}
@@ -310,7 +310,7 @@
 
             </div>
             <div class="col">
-                    <span class="atvalinajumi">Komandejumi</span>
+                <span class="atvalinajumi">Komandejumi</span>
 
 
                 <table class="table">
@@ -328,7 +328,7 @@
                 <td>{{ ieraksts.vieta }}</td>
                 <td>{{ ieraksts.datums_no|date:"d.m.Y" }}</td>
                 <td>{{ ieraksts.datums_lidz|date:"d.m.Y" }}</td>
-                <td>{{ ieraksts.datums_no|timesince:ieraksts.datums_lidz }}</td>
+                <td>{{ ieraksts.datums_no|days_between:ieraksts.datums_lidz }}</td>
               </tr>
             {% endfor %}
 
