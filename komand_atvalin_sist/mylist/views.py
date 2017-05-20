@@ -214,6 +214,10 @@ def index(request):
             komandejumu_ieraksti = paginator_komandejums.page(paginator_komandejums.num_pages)
 
 
+
+        ieraksti_id = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').values_list('id', flat=True)
+        komandejumu_failu_saraksts = Komandejums.objects.filter(ieraksts__id__in=ieraksti_id)
+
         context = {
             'ieraksti': ieraksti,
             'atvalinajumu_ieraksti': atvalinajumu_ieraksti,
@@ -224,6 +228,7 @@ def index(request):
             'datums_no': datums_no,
             'datums_lidz': datums_lidz,
             'vieta': vieta,
+            'komandejumu_failu_saraksts': komandejumu_failu_saraksts,
         }
         return render(request, 'mylist/index.html', context)
 

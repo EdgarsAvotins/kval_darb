@@ -29,5 +29,5 @@ def vacation_days_left(ieraksti):
         if ieraksts.merkis == 'atvalinajums':
             counter = ieraksts.datums_lidz - ieraksts.datums_no
             days = days + counter.days + 1
-            
+
     return 30 - days
