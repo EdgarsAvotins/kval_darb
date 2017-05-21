@@ -16,5 +16,5 @@ urlpatterns = [
     url(r'^logout$', views.LogoutView.as_view(), name='logout'),
 
     # login
-    url(r'^login/$', views.LoginView.as_view(), name='login'),
+    url(r'^login/$', views.login_page, name='login'),
 ]

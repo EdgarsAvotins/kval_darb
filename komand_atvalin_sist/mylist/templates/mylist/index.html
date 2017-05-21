@@ -8,6 +8,15 @@
 
     <div class="container" id="header">
         <div class="box">
+            {% if online_user.is_staff %}
+            <div class="pull-left">
+                {{ online_user.first_name }} {{ online_user.last_name }} (Admin)
+            </div>
+            {% else %}
+            <div class="pull-left">
+                {{ online_user.first_name }} {{ online_user.last_name }}
+            </div>
+            {% endif %}
             <div class="pull-right">
                 <a href="{% url 'mylist:logout' %}" class="btn btn-default">
                     Izrakstīties
@@ -86,11 +95,11 @@
 
                             <div id="myform-vieta">
                                 Vieta<br>
-                                <input id="input-vieta" type="text" name="vieta">
+                                <input id="input-vieta" required="required" type="text" name="vieta">
                             </div>
                             <div class="default-hide" id="myform-iesniegums">
                                 Iesniegums<br>
-                                <input type="file" id="file" name="iesniegums">
+                                <input type="file" id="jauns-ieraksts-iesniegums" name="iesniegums">
                             </div>
 
                             <input class="btn submit pull-right" type="submit" value="Nosūtīt">
@@ -169,10 +178,10 @@
                                                         <input type="hidden" name="atskaite_pievienot" value="{{ ieraksts.id }}">
                                                         <input type="file" id="file" required="required" name="atskaite">
                                                         <div class="checkbox">
-                                                          <label><input type="checkbox" data-toggle="buttons" value="" id="enable-upload1">Vēlos pievienot čekus</label>
+                                                          <label><input type="checkbox" data-toggle="buttons" value="" class="enable-upload1">Vēlos pievienot čekus</label>
                                                         </div>
                                                         <div class="upload-title">Augšuplādēt čekus (arhivēt, ja vairāki)</div>
-                                                        <input type="file" disabled="disabled" id="ceks-upload1" name="ceks">
+                                                        <input type="file" disabled="disabled" class="ceks-upload1" name="ceks">
                                                         <input class="btn submit pull-right" type="submit" value="Nosūtīt">
                                                     </form>
                                                 </div>
@@ -197,10 +206,10 @@
                                                         <input type="hidden" name="atskaite_labot" value="{{ ieraksts.id }}">
                                                         <input type="file" id="file" name="atskaite">
                                                         <div class="checkbox">
-                                                          <label><input type="checkbox" data-toggle="buttons" value="" id="enable-upload2">Vēlos pievienot čekus</label>
+                                                          <label><input type="checkbox" data-toggle="buttons" value="" class="enable-upload2">Vēlos pievienot čekus</label>
                                                         </div>
                                                         <div class="upload-title">Augšuplādēt čekus (arhivēt, ja vairāki)</div>
-                                                        <input type="file" disabled="disabled" id="ceks-upload2" name="ceks">
+                                                        <input type="file" disabled="disabled" class="ceks-upload2" name="ceks">
                                                         <input class="btn submit pull-right" type="submit" value="Nosūtīt">
                                                     </form>
                                                 </div>
@@ -366,6 +375,7 @@
         </div>
     </div>
 {{ online_user }}
+{{ online_user.is_staff }}
 
 </body>
 

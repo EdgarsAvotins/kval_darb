@@ -15,11 +15,6 @@
         </div>
     </div>
 
-    <form type="get" action="." style="margin: 0">
-        <input  id="search_box" type="text" name="search_box"  placeholder="Meklēt..." >
-        <button id="search_submit" type="submit" >Pievienot</button>
-    </form>
-
     <div class="container">
         <div class="box">
             <div class="row justify-content-md-center" id="navigation">
@@ -35,6 +30,35 @@
                 </div>
 
             </div>
+
+
+
+            <input id="search-input1" placeholder="Meklēt..."><br>
+            <form method='POST' enctype='multipart/form-data' role="form" action="/mylist/saved">{% csrf_token %}
+                <div id="user-list">
+                    {% for user in users %}
+                        <div class="checkbox user-full-name1">
+                          <label><input type="checkbox" data-toggle="buttons" name="add_user{{ user.id }}" value="{{ user }}">{{ user.first_name }} {{ user.last_name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="pievienot_lietotaju" value="1">
+                <input class="btn btn-default submit-users" type="submit" value="Pievienot">
+            </form>
+
+            <input id="search-input2" placeholder="Meklēt..."><br>
+            <form method='POST' enctype='multipart/form-data' role="form" action="/mylist/saved">{% csrf_token %}
+                <div id="user-list">
+                    {% for user in saved_users %}
+                        <div class="checkbox user-full-name2">
+                          <label><input type="checkbox" data-toggle="buttons" name="delete_user{{ user.id }}" value="{{ user }}">{{ user.first_name }} {{ user.last_name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="iznemt_lietotaju" value="1">
+                <input class="btn btn-default submit-users" type="submit" value="Izņemt">
+            </form>
+
 
             <div class="gads"> ŠODIEN, {% now 'd.m.Y' %} </div>
 

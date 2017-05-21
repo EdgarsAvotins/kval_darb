@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
-from .models import Ieraksts, Atvalinajums, Komandejums
+from .models import Ieraksts, Atvalinajums, Komandejums, SaglabatieLietotaji
 import datetime
 
 from django.shortcuts import render,redirect
@@ -19,13 +19,10 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 
 
-
 def index(request):
-    if request.method== 'GET':
+    if request.method == 'GET':
 
         online_user = request.user
-
-
 
         ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user).order_by('-datums_no')
 
@@ -224,10 +221,6 @@ def index(request):
             'komandejumu_ieraksti': komandejumu_ieraksti,
             'online_user': online_user,
             'all_users': all_users,
-            'merkis': merkis,
-            'datums_no': datums_no,
-            'datums_lidz': datums_lidz,
-            'vieta': vieta,
             'komandejumu_failu_saraksts': komandejumu_failu_saraksts,
         }
         return render(request, 'mylist/index.html', context)
@@ -258,15 +251,71 @@ def all(request):
         }
         return render(request, 'mylist/all.html', context)
 
+
 def saved(request):
     if request.method == 'GET':
 
-        ieraksti = Ieraksts.objects.all().order_by('datums_no')
+        online_user = request.user
+
+        saglabatie_lietotaji_saraksts = SaglabatieLietotaji.objects.filter(lietotajs_pats=online_user).values_list('saglabatais_lietotajs', flat=True)
+        ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts)
+
+        users = User.objects.exclude(id=online_user.id).exclude(id__in=saglabatie_lietotaji_saraksts)
+        saved_users = User.objects.exclude(id=online_user.id).filter(id__in=saglabatie_lietotaji_saraksts)
 
         context = {
             'ieraksti': ieraksti,
+            'users': users,
+            'saved_users': saved_users,
         }
         return render(request, 'mylist/saved.html', context)
+
+    if request.method == 'POST':
+
+        online_user = request.user
+
+        saglabatie_lietotaji_saraksts = SaglabatieLietotaji.objects.filter(lietotajs_pats=online_user).values_list('saglabatais_lietotajs', flat=True)
+        ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts)
+
+        users = User.objects.exclude(id=online_user.id).exclude(id__in=saglabatie_lietotaji_saraksts)
+        saved_users = User.objects.exclude(id=online_user.id).filter(id__in=saglabatie_lietotaji_saraksts)
+
+        pievienot_lietotaju = request.POST.get('pievienot_lietotaju')
+        iznemt_lietotaju = request.POST.get('iznemt_lietotaju')
+
+        total_user_count = User.objects.latest('id').id + 1
+        print total_user_count
+
+        if pievienot_lietotaju:
+            counter = 0
+            for _ in " " * total_user_count:
+                string = 'add_user' + str(counter)
+                posted_username = request.POST.get(string)
+                if posted_username:
+                    user_to_save = User.objects.get(username=posted_username)
+                    print user_to_save
+                    SaglabatieLietotaji.objects.create(lietotajs_pats=online_user, saglabatais_lietotajs=user_to_save)
+                counter += 1
+
+        elif iznemt_lietotaju:
+            counter = 0
+            for _ in " " * total_user_count:
+                string = 'delete_user' + str(counter)
+                posted_username = request.POST.get(string)
+                if posted_username:
+                    user_to_delete = User.objects.get(username=posted_username)
+                    print user_to_delete
+                    SaglabatieLietotaji.objects.get(lietotajs_pats=online_user, saglabatais_lietotajs=user_to_delete).delete()
+                counter += 1
+
+
+        context = {
+            'ieraksti': ieraksti,
+            'users': users,
+            'saved_users': saved_users,
+        }
+        return render(request, 'mylist/saved.html', context)
+
 
 class LogoutView(RedirectView):
     """
@@ -277,6 +326,62 @@ class LogoutView(RedirectView):
     def get(self, request, *args, **kwargs):
         auth_logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
+
+
+def login_page(request):
+    if request.method == 'GET':
+        context = {}
+        return render(request, 'mylist/login.html', context)
+
+    if request.method == 'POST':
+
+        login_form = request.POST.get("login_form")
+        signup_form = request.POST.get("signup_form")
+        login_error = ''
+        signup_error = ''
+
+        if login_form:
+            username = request.POST.get("username")
+            found_user = User.objects.filter(username=username)
+
+            if found_user:
+                user = authenticate(username=username, password=request.POST.get("password"))
+
+                if user is not None:
+                    login(request, user)
+                    return index(request)
+
+                else:
+                    login_error = 'Incorrect password'
+
+            else:
+                login_error = 'Username does not exist'
+
+        if signup_form:
+            first_name = request.POST.get("first_name")
+            last_name = request.POST.get("last_name")
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+
+            found_user = User.objects.filter(username=username)
+
+            if found_user:
+                signup_error = 'Username already taken'
+
+            else:
+                User.objects.create_user(first_name=first_name, last_name=last_name,
+                                         username=username, password=password)
+
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                return index(request)
+
+        context = {
+            'login_error': login_error,
+            'signup_error': signup_error,
+        }
+        return render(request, 'mylist/login.html', context)
+
 
 class LoginView(FormView):
     success_url = '/mylist/'
@@ -308,3 +413,33 @@ class LoginView(FormView):
         if not is_safe_url(url=redirect_to, host=self.request.get_host()):
             redirect_to = self.success_url
         return redirect_to
+
+
+
+# class UserFormView(View):
+#     form_class = UserCreationForm
+#     template_name = 'mylist/signup.html'
+#
+#     # display blank form
+#     def get(self, request):
+#         form = self.form_class(None)
+#         return render(request, self.template_name, {'form': form})
+#
+#     def post(self, request):
+#         form = self.form_class(request.POST)
+#
+#         if form.is_valid():
+#
+#             # create a user
+#             user = form.save(commit=False)
+#
+#             # cleaned data
+#
+#             user.save()  # save to database
+#
+#             if user is not None:
+#                 if user.is_active:
+#                     login(request, user)
+#                     return redirect('mylist:index')
+#
+#         return render(request, self.template_name, {'form': form})

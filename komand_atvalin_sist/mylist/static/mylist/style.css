@@ -300,3 +300,14 @@ input[type="radio"] {
 #login-form{
     background-color: #ffffff;
 }
+
+.user-full-name{
+    margin-top: 0px;
+}
+
+#user-list{
+    padding-top: 15px;
+    overflow: scroll;
+    height: 100px;
+    width: 200;
+}

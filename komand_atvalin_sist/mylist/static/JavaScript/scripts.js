@@ -3,6 +3,13 @@
  */
 
 $(function(){
+    $.validator.addMethod("alpha", function(value, element) {
+        return this.optional(element) || value == value.match(/^[a-zA-Z]+$/);
+    });
+});
+
+
+$(function(){
     $('.stop-propagation').on('click', function (e) {
         e.stopPropagation();
     });
@@ -30,8 +37,17 @@ $(document).on('click', 'th.datepicker-switch, span.month, td.day, th.next, th.p
 
 $(function(){
 
-    $('#komandejums-radio').click(function(){ $('#myform-vieta').show(); $('#myform-iesniegums').hide(); });
-    $('#atvalinajums-radio').click(function(){ $('#myform-iesniegums').show(); $('#myform-vieta').hide(); })
+    $('#komandejums-radio').click(function(){
+        $('#myform-vieta').show();
+        $('#myform-iesniegums').hide();
+        $('#jauns-ieraksts-iesniegums').prop('required', false);
+        $('#input-vieta').prop('required', true); });
+
+    $('#atvalinajums-radio').click(function(){
+        $('#myform-iesniegums').show();
+        $('#myform-vieta').hide();
+        $('#jauns-ieraksts-iesniegums').prop('required', true);
+        $('#input-vieta').prop('required', false); })
 
 });
 
@@ -42,15 +58,35 @@ $( 'body' ).on( 'click', '#enable-upload', function() {
 });
 
 $(function(){
-    $('#enable-upload1').on('click', function () {
-        if ($(this).is(':checked')) {$('#ceks-upload1').prop('disabled', false);}
-        else {$('#ceks-upload1').prop('disabled', true);}
+    $('.enable-upload1').on('click', function () {
+        if ($(this).is(':checked')) {$('.ceks-upload1').prop('disabled', false);}
+        else {$('.ceks-upload1').prop('disabled', true);}
     });
 });
 
 $(function(){
-    $('#enable-upload2').on('click', function () {
-        if ($(this).is(':checked')) {$('#ceks-upload2').prop('disabled', false);}
-        else {$('#ceks-upload2').prop('disabled', true);}
+    $('.enable-upload2').on('click', function () {
+        if ($(this).is(':checked')) {$('.ceks-upload2').prop('disabled', false);}
+        else {$('.ceks-upload2').prop('disabled', true);}
+    });
+});
+
+$(function(){
+    $('#search-input1').on('input', function() {
+        var input_value = $(this).val();
+        $('.user-full-name1').each (function () {
+            if ($(this).text().toLowerCase().indexOf(input_value) >= 0 ) { $(this).show(); }
+            else {$(this).hide();}
+        })
+    });
+});
+
+$(function(){
+    $('#search-input2').on('input', function() {
+        var input_value = $(this).val();
+        $('.user-full-name2').each (function () {
+            if ($(this).text().toLowerCase().indexOf(input_value) >= 0 ) { $(this).show(); }
+            else {$(this).hide();}
+        })
     });
 });
