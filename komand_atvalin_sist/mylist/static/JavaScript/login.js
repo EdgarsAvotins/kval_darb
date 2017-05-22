@@ -4,11 +4,9 @@ $(function(){
     $('#submit-login').prop('disabled', true);
 });
 
-// $(function(){
-//     $('#repeat-password-wrong').hide();
-//     $('#submit-signup').prop('disabled', true);
-//     $('#submit-login').prop('disabled', true);
-// });
+$(document).ready(function (){
+    if ($('#login-error-message').text().length) {$('#login-tab').click();}
+});
 
 $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 

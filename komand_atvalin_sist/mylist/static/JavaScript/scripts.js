@@ -3,13 +3,6 @@
  */
 
 $(function(){
-    $.validator.addMethod("alpha", function(value, element) {
-        return this.optional(element) || value == value.match(/^[a-zA-Z]+$/);
-    });
-});
-
-
-$(function(){
     $('.stop-propagation').on('click', function (e) {
         e.stopPropagation();
     });
@@ -51,23 +44,35 @@ $(function(){
 
 });
 
-$( 'body' ).on( 'click', '#enable-upload', function() {
-    if( $(this).attr('data-toggle') != 'button' ) { $(this).toggleClass('active');      }
-    if( $(this).hasClass( 'active' ) == true )    { $("input").prop('disabled', false); }
-    if( $(this).hasClass( 'active' ) == false )   { $("input").prop('disabled', true);  }
-});
+// $( 'body' ).on( 'click', '#enable-upload', function() {
+//     if( $(this).attr('data-toggle') != 'button' ) { $(this).toggleClass('active');      }
+//     if( $(this).hasClass( 'active' ) == true )    { $("input").prop('disabled', false); }
+//     if( $(this).hasClass( 'active' ) == false )   { $("input").prop('disabled', true);  }
+// });
 
 $(function(){
     $('.enable-upload1').on('click', function () {
-        if ($(this).is(':checked')) {$('.ceks-upload1').prop('disabled', false);}
-        else {$('.ceks-upload1').prop('disabled', true);}
+        if ($(this).is(':checked')) {
+            $('.ceks-upload1').prop('disabled', false);
+            $('.ceks-upload1').prop('required', true);
+        }
+        else {
+            $('.ceks-upload1').prop('disabled', true);
+            $('.ceks-upload1').prop('required', false);
+        }
     });
 });
 
 $(function(){
     $('.enable-upload2').on('click', function () {
-        if ($(this).is(':checked')) {$('.ceks-upload2').prop('disabled', false);}
-        else {$('.ceks-upload2').prop('disabled', true);}
+        if ($(this).is(':checked')) {
+            $('.ceks-upload2').prop('disabled', false);
+            $('.ceks-upload2').prop('required', true);
+        }
+        else {
+            $('.ceks-upload2').prop('disabled', true);
+            $('.ceks-upload2').prop('required', false);
+        }
     });
 });
 
@@ -75,7 +80,7 @@ $(function(){
     $('#search-input1').on('input', function() {
         var input_value = $(this).val();
         $('.user-full-name1').each (function () {
-            if ($(this).text().toLowerCase().indexOf(input_value) >= 0 ) { $(this).show(); }
+            if ($(this).text().toLowerCase().indexOf(input_value.toString().toLowerCase()) >= 0 ) { $(this).show(); }
             else {$(this).hide();}
         })
     });
@@ -85,7 +90,17 @@ $(function(){
     $('#search-input2').on('input', function() {
         var input_value = $(this).val();
         $('.user-full-name2').each (function () {
-            if ($(this).text().toLowerCase().indexOf(input_value) >= 0 ) { $(this).show(); }
+            if ($(this).text().toLowerCase().indexOf(input_value.toString().toLowerCase()) >= 0 ) { $(this).show(); }
+            else {$(this).hide();}
+        })
+    });
+});
+
+$(function(){
+    $('#search-input').on('input', function() {
+        var input_value = $(this).val();
+        $('.user-full-name').each (function () {
+            if ($(this).val().toLowerCase().indexOf(input_value.toString().toLowerCase()) >= 0 ) { $(this).show(); }
             else {$(this).hide();}
         })
     });

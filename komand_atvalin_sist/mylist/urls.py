@@ -12,6 +12,9 @@ urlpatterns = [
     # /mylist/saved
     url(r'^saved$', views.saved, name='saved'),
 
+    # /mylist/employees
+    url(r'^employees$', views.employees, name='employees'),
+
     # logout
     url(r'^logout$', views.LogoutView.as_view(), name='logout'),
 

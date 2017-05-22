@@ -1,12 +1,22 @@
 {% extends "mylist/base.html" %}
 {% load staticfiles %}
+{% load custom_tags %}
 
 {% block content %}
 
 <body>
 
-    <div class="container">
+    <div class="container" id="header">
         <div class="box">
+            {% if online_user.is_staff %}
+            <div class="pull-left" id="top-bar-name">
+                {{ online_user.first_name }} {{ online_user.last_name }} (Admin)
+            </div>
+            {% else %}
+            <div class="pull-left" id="top-bar-name">
+                {{ online_user.first_name }} {{ online_user.last_name }}
+            </div>
+            {% endif %}
             <div class="pull-right">
                 <a href="{% url 'mylist:logout' %}" class="btn btn-default">
                     Izrakstīties
@@ -31,6 +41,14 @@
 
             </div>
 
+            {% if online_user.is_staff %}
+                <div class="row justify-content-md-center" id="admin-navigation">
+                    <div class="col col-lg-2">
+                        <b><a class="link" href="{% url 'mylist:employees' %}">Darbinieki</a> </b>
+                    </div>
+                </div>
+            {% endif %}
+
             <div class="gads"> ŠODIEN, {% now 'd.m.Y' %} </div>
 
             <table class="table">
@@ -51,7 +69,7 @@
                     {% elif ieraksts.merkis == 'komandejums' %}
                     <tr class="row-business-travel">
                     {% endif %}
-                        <td>{{ ieraksts.lietotajs }}</td>
+                        <td>{{ ieraksts.lietotajs|get_full_name:users }}</td>
                         {% if ieraksts.merkis == 'atvalinajums' %}
                         <td>Atvaļinājums</td>
                         {% elif ieraksts.merkis == 'komandejums' %}

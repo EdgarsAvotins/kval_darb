@@ -48,3 +48,10 @@ class SaglabatieLietotaji(models.Model):
 
     def __str__(self):
         return str(self.lietotajs_pats) + ' - ' + str(self.saglabatais_lietotajs)
+
+class Norikojums(models.Model):
+    ieraksts = models.ForeignKey('Ieraksts', on_delete=models.CASCADE)
+    norikojums = models.FileField()
+
+    def __str__(self):
+        return str(self.ieraksts)

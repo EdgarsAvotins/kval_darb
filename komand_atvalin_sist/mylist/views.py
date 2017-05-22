@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
-from .models import Ieraksts, Atvalinajums, Komandejums, SaglabatieLietotaji
+from .models import Ieraksts, Atvalinajums, Komandejums, SaglabatieLietotaji, Norikojums
 import datetime
 
 from django.shortcuts import render,redirect
@@ -17,6 +17,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
+from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -75,8 +76,8 @@ def index(request):
         ieraksti_id = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').values_list('id', flat=True)
         komandejumu_failu_saraksts = Komandejums.objects.filter(ieraksts__id__in=ieraksti_id)
 
-
         context = {
+            'ieraksti_saraksts': ieraksti_saraksts,
             'ieraksti' : ieraksti,
             'atvalinajumu_ieraksti': atvalinajumu_ieraksti,
             'komandejumu_ieraksti': komandejumu_ieraksti,
@@ -216,6 +217,7 @@ def index(request):
         komandejumu_failu_saraksts = Komandejums.objects.filter(ieraksts__id__in=ieraksti_id)
 
         context = {
+            'ieraksti_saraksts': ieraksti_saraksts,
             'ieraksti': ieraksti,
             'atvalinajumu_ieraksti': atvalinajumu_ieraksti,
             'komandejumu_ieraksti': komandejumu_ieraksti,
@@ -229,10 +231,11 @@ def index(request):
 def all(request):
     if request.method == 'GET':
 
-        # ieraksti_saraksts = Ieraksts.objects.all().order_by('datums_no')
+        online_user = request.user
+        users = User.objects.all()
 
         now = datetime.date.today()
-        ieraksti_saraksts = Ieraksts.objects.filter(datums_no__lte=now, datums_lidz__gte=now).order_by('lietotajs')
+        ieraksti_saraksts = Ieraksts.objects.exclude(lietotajs=online_user).filter(datums_no__lte=now, datums_lidz__gte=now).order_by('lietotajs')
 
         paginator = Paginator(ieraksti_saraksts, 10)  # Show 25 contacts per page
 
@@ -248,6 +251,8 @@ def all(request):
 
         context = {
             'ieraksti': ieraksti,
+            'online_user': online_user,
+            'users': users,
         }
         return render(request, 'mylist/all.html', context)
 
@@ -256,6 +261,7 @@ def saved(request):
     if request.method == 'GET':
 
         online_user = request.user
+        all_users = User.objects.all()
 
         saglabatie_lietotaji_saraksts = SaglabatieLietotaji.objects.filter(lietotajs_pats=online_user).values_list('saglabatais_lietotajs', flat=True)
         ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts)
@@ -266,7 +272,9 @@ def saved(request):
         context = {
             'ieraksti': ieraksti,
             'users': users,
+            'all_users': all_users,
             'saved_users': saved_users,
+            'online_user': online_user,
         }
         return render(request, 'mylist/saved.html', context)
 
@@ -313,8 +321,121 @@ def saved(request):
             'ieraksti': ieraksti,
             'users': users,
             'saved_users': saved_users,
+            'online_user': online_user,
         }
         return render(request, 'mylist/saved.html', context)
+
+
+def employees(request):
+    if request.method == 'GET':
+
+        online_user = request.user
+        users = User.objects.all().order_by('last_name')
+
+        context = {
+            'online_user': online_user,
+            'users': users,
+        }
+        return render(request, 'mylist/employees.html', context)
+
+
+    if request.method == 'POST':
+
+        correct_user = None
+        online_user = request.user
+        users = User.objects.all().order_by('last_name')
+
+        darbinieks_pieprasit = request.POST.get("darbinieks_pieprasit")
+        iesniegums_labot_id = request.POST.get("iesniegums_labot")
+        atskaite_pievienot_id = request.POST.get("atskaite_pievienot")
+        atskaite_labot_id = request.POST.get("atskaite_labot")
+        status_make_false = request.POST.get("status_make_false")
+        status_make_true = request.POST.get("status_make_true")
+
+        files = request.FILES
+
+        if darbinieks_pieprasit:
+            full_name = darbinieks_pieprasit.split()
+            name = full_name[0]
+            surname = full_name[1]
+            correct_user = User.objects.get(first_name=name, last_name=surname)
+
+        elif iesniegums_labot_id:
+            iesniegums_fails = request.FILES['iesniegums']
+
+            pareizais_ieraksts = Ieraksts.objects.get(id=iesniegums_labot_id)
+            pareizais_atvalinajums = Atvalinajums.objects.get(ieraksts=pareizais_ieraksts)
+            pareizais_atvalinajums.iesniegums = iesniegums_fails
+            pareizais_atvalinajums.save()
+
+            correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
+
+        elif atskaite_pievienot_id:
+            pareizais_ieraksts = Ieraksts.objects.get(id=atskaite_pievienot_id)
+
+            if 'ceks' in files and 'atskaite' in files:
+                atskaite_fails = request.FILES['atskaite']
+                ceks_fails = request.FILES['ceks']
+                Komandejums.objects.create(ieraksts=pareizais_ieraksts, atskaite=atskaite_fails, ceks=ceks_fails)
+
+            elif 'atskaite' in files:
+                atskaite_fails = request.FILES['atskaite']
+                Komandejums.objects.create(ieraksts=pareizais_ieraksts, atskaite=atskaite_fails)
+
+            correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
+
+        elif atskaite_labot_id:
+
+            pareizais_ieraksts = Ieraksts.objects.get(id=atskaite_labot_id)
+            pareizais_komandejums = Komandejums.objects.get(ieraksts=pareizais_ieraksts)
+
+            if 'ceks' and 'atskaite' in files:
+                atskaite_fails = request.FILES['atskaite']
+                ceks_fails = request.FILES['ceks']
+                pareizais_komandejums.atskaite = atskaite_fails
+                pareizais_komandejums.ceks = ceks_fails
+                pareizais_komandejums.save()
+
+            elif 'atskaite' in files:
+                atskaite_fails = request.FILES['atskaite']
+                pareizais_komandejums.atskaite = atskaite_fails
+                pareizais_komandejums.save()
+
+            elif 'ceks' in files:
+                ceks_fails = request.FILES['ceks']
+                pareizais_komandejums.ceks = ceks_fails
+                pareizais_komandejums.save()
+
+            correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
+
+        elif status_make_false:
+
+            pareizais_ieraksts = Ieraksts.objects.get(id=status_make_false)
+            pareizais_ieraksts.statuss = False
+
+            correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
+
+        elif status_make_true:
+
+            pareizais_ieraksts = Ieraksts.objects.get(id=status_make_false)
+            pareizais_ieraksts.statuss = False
+
+            correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
+
+        ieraksti = Ieraksts.objects.filter(lietotajs=correct_user).order_by('-datums_no')
+        ieraksti_id = Ieraksts.objects.filter(lietotajs=correct_user, merkis='komandejums').values_list('id',
+                                                                                                        flat=True)
+        komandejumu_failu_saraksts = Komandejums.objects.filter(ieraksts__id__in=ieraksti_id)
+        norikojumu_failu_saraksts = Norikojums.objects.filter(ieraksts__id__in=ieraksti_id)
+
+        context = {
+            'online_user': online_user,
+            'users': users,
+            'ieraksti': ieraksti,
+            'komandejumu_failu_saraksts': komandejumu_failu_saraksts,
+            'norikojumu_failu_saraksts': norikojumu_failu_saraksts,
+        }
+        return render(request, 'mylist/employees.html', context)
 
 
 class LogoutView(RedirectView):
@@ -349,7 +470,8 @@ def login_page(request):
 
                 if user is not None:
                     login(request, user)
-                    return index(request)
+                    # return index(request)
+                    return HttpResponseRedirect('/mylist/')
 
                 else:
                     login_error = 'Incorrect password'
@@ -374,72 +496,11 @@ def login_page(request):
 
                 user = authenticate(username=username, password=password)
                 login(request, user)
-                return index(request)
+                # return index(request)
+                return HttpResponseRedirect('/mylist/')
 
         context = {
             'login_error': login_error,
             'signup_error': signup_error,
         }
         return render(request, 'mylist/login.html', context)
-
-
-class LoginView(FormView):
-    success_url = '/mylist/'
-    form_class = AuthenticationForm
-    template_name = 'mylist/login.html'
-    redirect_field_name = REDIRECT_FIELD_NAME
-
-    @method_decorator(sensitive_post_parameters('password'))
-    @method_decorator(csrf_protect)
-    @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs):
-        # Sets a test cookie to make sure the user has cookies enabled
-        request.session.set_test_cookie()
-
-        return super(LoginView, self).dispatch(request, *args, **kwargs)
-
-    def form_valid(self, form):
-        auth_login(self.request, form.get_user())
-
-        # If the test cookie worked, go ahead and
-        # delete it since its no longer needed
-        if self.request.session.test_cookie_worked():
-            self.request.session.delete_test_cookie()
-
-        return super(LoginView, self).form_valid(form)
-
-    def get_success_url(self):
-        redirect_to = self.request.POST.get(self.redirect_field_name)
-        if not is_safe_url(url=redirect_to, host=self.request.get_host()):
-            redirect_to = self.success_url
-        return redirect_to
-
-
-
-# class UserFormView(View):
-#     form_class = UserCreationForm
-#     template_name = 'mylist/signup.html'
-#
-#     # display blank form
-#     def get(self, request):
-#         form = self.form_class(None)
-#         return render(request, self.template_name, {'form': form})
-#
-#     def post(self, request):
-#         form = self.form_class(request.POST)
-#
-#         if form.is_valid():
-#
-#             # create a user
-#             user = form.save(commit=False)
-#
-#             # cleaned data
-#
-#             user.save()  # save to database
-#
-#             if user is not None:
-#                 if user.is_active:
-#                     login(request, user)
-#                     return redirect('mylist:index')
-#
-#         return render(request, self.template_name, {'form': form})

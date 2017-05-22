@@ -9,11 +9,11 @@
     <div class="container" id="header">
         <div class="box">
             {% if online_user.is_staff %}
-            <div class="pull-left">
+            <div class="pull-left" id="top-bar-name">
                 {{ online_user.first_name }} {{ online_user.last_name }} (Admin)
             </div>
             {% else %}
-            <div class="pull-left">
+            <div class="pull-left" id="top-bar-name">
                 {{ online_user.first_name }} {{ online_user.last_name }}
             </div>
             {% endif %}
@@ -27,20 +27,27 @@
 
     <div class="container">
         <div class="box">
-
             <div class="row justify-content-md-center" id="navigation">
 
                 <div class="col col-lg-2 active">
-                    <b><a class="link" href="{% url 'mylist:index' %}"> Mans saraksts</a> </b>
+                    <b><a class="link" href="{% url 'mylist:index' %}">Mans saraksts</a> </b>
                 </div>
                 <div class="col col-lg-1">
-                    <b><a class="link" href="{% url 'mylist:all' %}"> Visi</a> </b>
+                    <b><a class="link" href="{% url 'mylist:all' %}">Visi</a> </b>
                 </div>
                 <div class="col col-lg-2">
-                    <b><a class="link" href="{% url 'mylist:saved' %}"> Saglabātie</a> </b>
+                    <b><a class="link" href="{% url 'mylist:saved' %}">Saglabātie</a> </b>
                 </div>
 
             </div>
+
+            {% if online_user.is_staff %}
+                <div class="row justify-content-md-center" id="admin-navigation">
+                    <div class="col col-lg-2">
+                        <b><a class="link" href="{% url 'mylist:employees' %}">Darbinieki</a> </b>
+                    </div>
+                </div>
+            {% endif %}
 
             <div class="gads"> {% now 'Y' %} </div>
 
@@ -119,6 +126,7 @@
                         <th class="empty"></th>
                     </tr>
                 </thead>
+                {% if ieraksti %}
                 {% for ieraksts in ieraksti %}
                 <tbody class="tbody">
                     {% if ieraksts.merkis == 'atvalinajums' %}
@@ -229,6 +237,17 @@
                     </tr>
                 </tbody>
                 {% endfor %}
+                {% else %}
+                    <tbody>
+                        <tr>
+                            <td class="td-emp">Nav ierakstu</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                {% endif %}
             </table>
 
             <div class="w3-center w3-small">
@@ -256,6 +275,8 @@
             </div>
 
 
+
+
 <!--
         <div class="w3-center w3-small">
             <div class="w3-bar">
@@ -270,7 +291,7 @@
               <div class="row">
             <div class="col">
               <span class="atvalinajumi">Atvaļinājumi</span>
-                <span class="dienas">Pieejamās dienas: <b>{{ ieraksti|vacation_days_left }}</b></span>
+                <span class="dienas">Pieejamās dienas: <b>{{ ieraksti_saraksts|vacation_days_left }}</b></span>
 
 
             <table class="table">
@@ -281,6 +302,7 @@
                     <th>Dienas</th>
                   </tr>
                 </thead>
+            {% if atvalinajumu_ieraksti %}
                 {% for ieraksts in atvalinajumu_ieraksti %}
                 <tbody class="tbody">
                   <tr class="row-business-travel">
@@ -290,7 +312,18 @@
                   </tr>
                 </tbody>
                 {% endfor %}
+            {% else %}
+                <tbody>
+                    <tr>
+                        <td>Nav ierakstu</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            {% endif %}
             </table>
+
 
             <div class="w3-center w3-small">
                 <div class="pagination">
@@ -331,6 +364,7 @@
                 <th>Dienas</th>
               </tr>
             </thead>
+            {% if komandejumu_ieraksti %}
             {% for ieraksts in komandejumu_ieraksti %}
             <tbody class="tbody">
               <tr class="row-business-travel">
@@ -340,8 +374,17 @@
                 <td>{{ ieraksts.datums_no|days_between:ieraksts.datums_lidz }}</td>
               </tr>
             {% endfor %}
-
             </tbody>
+            {% else %}
+                <tbody>
+                    <tr>
+                        <td>Nav ierakstu</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            {% endif %}
             </table>
 
             <div class="w3-center w3-small">
@@ -374,9 +417,9 @@
 
         </div>
     </div>
-{{ online_user }}
-{{ online_user.is_staff }}
-
+{% for kom in komandejumu_failu_saraksts %}
+    <a href="{{ kom.atskaite.url }}" download>download {{ kom.atskaite.name }}</a><br>
+{% endfor %}
 </body>
 
 {%endblock content%}

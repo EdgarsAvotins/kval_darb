@@ -1,0 +1,245 @@
+{% extends "mylist/base.html" %}
+{% load staticfiles %}
+{% load custom_tags %}
+
+{% block content %}
+
+<body>
+
+    <div class="container" id="header">
+        <div class="box">
+            {% if online_user.is_staff %}
+            <div class="pull-left" id="top-bar-name">
+                {{ online_user.first_name }} {{ online_user.last_name }} (Admin)
+            </div>
+            {% else %}
+            <div class="pull-left" id="top-bar-name">
+                {{ online_user.first_name }} {{ online_user.last_name }}
+            </div>
+            {% endif %}
+            <div class="pull-right">
+                <a href="{% url 'mylist:logout' %}" class="btn btn-default">
+                    Izrakstīties
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="box">
+            <div class="row justify-content-md-center" id="navigation">
+
+                <div class="col col-lg-2">
+                    <b><a class="link" href="{% url 'mylist:index' %}"> Mans saraksts</a> </b>
+                </div>
+                <div class="col col-lg-1">
+                    <b><a class="link" href="{% url 'mylist:all' %}"> Visi</a> </b>
+                </div>
+                <div class="col col-lg-2">
+                    <b><a class="link" href="{% url 'mylist:saved' %}"> Saglabātie</a> </b>
+                </div>
+
+            </div>
+
+            {% if online_user.is_staff %}
+                <div class="row justify-content-md-center" id="admin-navigation">
+                    <div class="col col-lg-2 active">
+                        <b><a class="link" href="{% url 'mylist:employees' %}">Darbinieki</a> </b>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="dropdown pull-right">
+                <div class="" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <input id="search-input" placeholder="Meklēt..."><br>
+                </div>
+                <div class="dropdown-menu stop-propagation" role="menu">
+                    <div class="">
+                        <form method='POST' role="form" enctype='multipart/form-data' action="/mylist/employees" id="search-user-form">{% csrf_token %}
+                            {% for user in users %}
+{#                                <input type="hidden" name="darbinieks_pieprasit" value="{{ user.id }}">#}
+                                <input class="btn btn-default pull-right user-full-name" name="darbinieks_pieprasit" type="submit" value="{{ user.first_name }} {{ user.last_name }}">
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table">
+
+                <thead>
+                    <tr class="tabulas-galva row-header">
+                        <th>Vārds</th>
+                        <th>Mērķis</th>
+                        <th>Vieta</th>
+                        <th>No</th>
+                        <th>Līdz</th>
+                        <th>Lejuplādēt</th>
+                        <th>Labot</th>
+                        <th>Rīkojums</th>
+                        <th>Kārtībā?</th>
+                        <th>Dzēst</th>
+                    </tr>
+                </thead>
+                {% for ieraksts in ieraksti %}
+                <tbody class="tbody">
+                    {% if ieraksts.merkis == 'atvalinajums' %}
+                    <tr class="row-vacation">
+                    {% elif ieraksts.merkis == 'komandejums' %}
+                    <tr class="row-business-travel">
+                    {% endif %}
+                        <td>{{ ieraksts.lietotajs|get_full_name:users }}</td>
+                        {% if ieraksts.merkis == 'atvalinajums' %}
+                        <td>Atvaļinājums</td>
+                        {% elif ieraksts.merkis == 'komandejums' %}
+                        <td>Komandējums</td>
+                        {% endif %}
+                        <td>{{ ieraksts.vieta }}</td>
+                        <td>{{ ieraksts.datums_no|date:"d.m.Y"}}</td>
+                        <td>{{ ieraksts.datums_lidz|date:"d.m.Y"}}</td>
+                        <td>iesniegums</td>
+                        {% if ieraksts.merkis == 'atvalinajums' %}
+{#                            <td class="pull-right">Labot iesniegumu</td>#}
+                            <td class="pull-right"><button type="button" class="btn btn-default labot-iesniegumu-btn" data-toggle="modal" data-target="#labot-iesniegumu-modal-{{ ieraksts.id }}" id="labot-iesniegumu-btn-{{ ieraksts.id }}">Labot iesniegumu</button></td>
+
+                            <div class="modal fade labot-iesniegumu-modal" id="labot-iesniegumu-modal-{{ ieraksts.id }}">
+                                <div class="modal-dialog modal-sm labot-iesniegumu-dialog" id="labot-iesniegumu-dialog-{{ ieraksts.id }}">
+                                    <div class="modal-content">
+
+                                        <div class="modal-body">
+                                            <div class="header">
+                                                IESNIEGUMA LABOŠANA
+                                            </div>
+                                            <form method='POST' enctype='multipart/form-data' role="form" action="/mylist/">{% csrf_token %}
+                                                <div class="upload-title">Augšuplādēt iesniegumu</div>
+                                                <input type="hidden" name="iesniegums_labot" value="{{ ieraksts.id }}">
+                                                <input type="file" id="file" name="iesniegums">
+                                                <input class="btn submit pull-right" type="submit" value="Nosūtīt">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% elif ieraksts.merkis == 'komandejums' %}
+                            {% if ieraksts.datums_lidz|trip_ended %}
+                                {% if ieraksts|is_found:komandejumu_failu_saraksts == False %}
+                                    <td class="pull-right"><button type="button" class="btn btn-danger pievienot-atskaiti-btn" data-toggle="modal" data-target="#pievienot-atskaiti-modal-{{ ieraksts.id }}" id="pievienot-atskaiti-btn-{{ ieraksts.id }}">Pievienot atskaiti</button></td>
+
+                                    <div class="modal fade pievienot-atskaiti-modal atskaite-modal" id="pievienot-atskaiti-modal-{{ ieraksts.id }}">
+                                        <div class="modal-dialog modal-sm pievienot-atskaiti-dialog" id="pievienot-atskaiti-dialog-{{ ieraksts.id }}">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="header">
+                                                        ATSKAITES PIEVIENOŠANA
+                                                    </div>
+                                                    <form method='POST' enctype='multipart/form-data' role="form" action="/mylist/">{% csrf_token %}
+                                                        <div class="upload-title">Augšuplādēt atskaiti</div>
+                                                        <input type="hidden" name="atskaite_pievienot" value="{{ ieraksts.id }}">
+                                                        <input type="file" id="file" required="required" name="atskaite">
+                                                        <div class="checkbox">
+                                                          <label><input type="checkbox" data-toggle="buttons" value="" class="enable-upload1">Vēlos pievienot čekus</label>
+                                                        </div>
+                                                        <div class="upload-title">Augšuplādēt čekus (arhivēt, ja vairāki)</div>
+                                                        <input type="file" disabled="disabled" class="ceks-upload1" name="ceks">
+                                                        <input class="btn submit pull-right" type="submit" value="Nosūtīt">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                {% else %}
+                                    <td class="pull-right"><button type="button" class="btn btn-default labot-atskaiti-btn" data-toggle="modal" data-target="#labot-atskaiti-modal-{{ ieraksts.id }}" id="labot-atskaiti-btn-{{ ieraksts.id }}">Labot atskaiti</button></td>
+
+                                    <div class="modal fade labot-atskaiti-modal atskaite-modal" id="labot-atskaiti-modal-{{ ieraksts.id }}">
+                                        <div class="modal-dialog modal-sm labot-atskaiti-dialog" id="labot-atskaiti-dialog-{{ ieraksts.id }}">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="header">
+                                                        ATSKAITES LABOŠANA
+                                                    </div>
+                                                    <form method='POST' enctype='multipart/form-data' role="form" action="/mylist/">{% csrf_token %}
+                                                        <div class="upload-title">Augšuplādēt atskaiti</div>
+                                                        <input type="hidden" name="atskaite_labot" value="{{ ieraksts.id }}">
+                                                        <input type="file" id="file" name="atskaite">
+                                                        <div class="checkbox">
+                                                          <label><input type="checkbox" data-toggle="buttons" value="" class="enable-upload2">Vēlos pievienot čekus</label>
+                                                        </div>
+                                                        <div class="upload-title">Augšuplādēt čekus (arhivēt, ja vairāki)</div>
+                                                        <input type="file" disabled="disabled" class="ceks-upload2" name="ceks">
+                                                        <input class="btn submit pull-right" type="submit" value="Nosūtīt">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        {% if ieraksts.merkis == 'komandejums' %}
+                            {% if ieraksts|is_found:norikojumu_failu_saraksts == False %}
+                                <td>pievienot</td>
+                            {% else %}
+                                <td>labot</td>
+                            {% endif %}
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        {% if ieraksts.statuss %}
+                            <td>
+                                <form method='POST' role="form" enctype='multipart/form-data' action="/mylist/employees">{% csrf_token %}
+                                    <input class="status-checkbox" type="checkbox" checked="checked" name="status_make_false" value="{{ ieraksts.id }}">
+                                    <input class="invisible-submit" type="submit" value="">
+                                </form>
+                            </td>
+                        {% else %}
+                            <td>
+                                <form method='POST' role="form" enctype='multipart/form-data' action="/mylist/employees">{% csrf_token %}
+                                    <input class="status-checkbox" type="checkbox" name="status_make_true" value="{{ ieraksts.id }}">
+                                    <input class="invisible-submit" type="submit" value="">
+                                </form>
+                            </td>
+                        {% endif %}
+                        <td><span class="glyphicon glyphicon-remove"></span></td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+
+            <div class="w3-center w3-small">
+                <div class="pagination">
+                    <div class="w3-bar">
+                        <span class="step-links">
+                            {% if ieraksti.has_previous %}
+                                <a href="?page={{ ieraksti.previous_page_number }}" class="w3-button"> &laquo; </a>
+                            {% else %}
+                                <a href="#" class="w3-button"> &laquo; </a>
+                            {% endif %}
+
+                            <span class="current">
+                                {{ ieraksti.number }} no {{ ieraksti.paginator.num_pages }}
+                            </span>
+
+                            {% if ieraksti.has_next %}
+                                <a href="?page={{ ieraksti.next_page_number }}" class="w3-button"> &raquo; </a>
+                            {% else %}
+                                <a href="#" class="w3-button"> &raquo; </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</body>
+
+{%endblock content%}

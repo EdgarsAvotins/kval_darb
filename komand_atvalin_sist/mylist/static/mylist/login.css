@@ -11,6 +11,10 @@ body {
   font-family: 'Titillium Web', sans-serif;
 }
 
+td{
+  width: auto;
+}
+
 .logout{
     width: 100%;
 }
@@ -126,7 +130,6 @@ input, textarea {
   height: 100%;
   padding: 5px 10px;
   background: none;
-  background-image: none;
   border: 1px solid #a0b3b0;
   color: #444c63;
   border-radius: 0;
@@ -195,6 +198,6 @@ textarea {
   text-align: right;
 }
 
-#submit-signup:disabled, #submit-login:disabled{
+#submit-signup:disabled{
   background-color: grey;
 }
