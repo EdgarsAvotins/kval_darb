@@ -115,8 +115,16 @@ $('#signup-repeat-password').on('input', function() {
 });
 
 $('#signup-password').on('input', function() {
-    if ( compare_passwords() ) { enable_submit_button() }
-    else { disable_submit_button() }
+    if ( compare_passwords() ) {
+        enable_submit_button();
+        $('#repeat-password-wrong').hide();
+        $('#repeat-password-correct').show();
+    }
+    else {
+        disable_submit_button();
+        $('#repeat-password-wrong').show();
+        $('#repeat-password-correct').hide();
+    }
 });
 
 $('#signup-first-name, #signup-last-name, #signup-username, #signup-password').on('input', function() {

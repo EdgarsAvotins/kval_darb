@@ -11,10 +11,6 @@ body {
   font-family: 'Titillium Web', sans-serif;
 }
 
-td{
-  width: auto;
-}
-
 .logout{
     width: 100%;
 }
@@ -198,6 +194,6 @@ textarea {
   text-align: right;
 }
 
-#submit-signup:disabled{
+#submit-signup:disabled, #submit-login:disabled{
   background-color: grey;
 }

@@ -13,7 +13,7 @@ $(function(){
 });
 
 $(document).ready(function() {
-    $('.datepicker').datepicker({
+    $('.datepicker1').datepicker({
         autoclose: true,
         format: 'yyyy-mm-dd',
         startDate: "today",
@@ -23,6 +23,22 @@ $(document).ready(function() {
         todayHighlight: true
     });
 });
+
+$(document).ready(function() {
+    $('.datepicker2').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        startDate: "today",
+        maxViewMode: 0,
+        language: "lv",
+        daysOfWeekHighlighted: "0,6",
+        todayHighlight: true
+    });
+});
+
+// $(document).ready(function() {
+//     $('.datepicker2').datepicker('setDates', [new Date(2017, 11, 11)]);
+// });
 
 $(document).on('click', 'th.datepicker-switch, span.month, td.day, th.next, th.prev, th.switch, span.year', function (e) {
     e.stopPropagation();
@@ -103,5 +119,57 @@ $(function(){
             if ($(this).val().toLowerCase().indexOf(input_value.toString().toLowerCase()) >= 0 ) { $(this).show(); }
             else {$(this).hide();}
         })
+    });
+});
+
+$(function(){
+    if (!$('td:nth-child(1)').text().length) {
+        $('.filter-status').prop('disabled', true);
+        $('.filter-vacation').prop('disabled', true);
+        $('.filter-business-trip').prop('disabled', true);
+        $('.filter-all').prop('disabled', true);
+    }
+});
+
+$(function(){
+    $('.filter-business-trip').on('click', function () {
+        $('.row-vacation').hide();
+        $('.row-business-travel').show();
+        $(this).prop('disabled', true);
+        $('.filter-vacation').prop('disabled', false);
+        $('.filter-all').prop('disabled', false);
+    });
+});
+
+$(function(){
+    $('.filter-vacation').on('click', function () {
+        $('.row-vacation').show();
+        $('.row-business-travel').hide();
+        $(this).prop('disabled', true);
+        $('.filter-business-trip').prop('disabled', false);
+        $('.filter-all').prop('disabled', false);
+    });
+});
+
+$(function(){
+    $('.filter-all').on('click', function () {
+        $('.row-vacation').show();
+        $('.row-business-travel').show();
+        $(this).prop('disabled', true);
+        $('.filter-vacation').prop('disabled', false);
+        $('.filter-business-trip').prop('disabled', false);
+    });
+});
+
+$(function(){
+    $('.filter-status').on('click', function () {
+        if ($(this).hasClass('filter-active')) {
+            $(this).toggleClass('filter-active');
+            $('.row-good-status').prop('hidden', false);
+        }
+        else {
+            $(this).toggleClass('filter-active');
+            $('.row-good-status').prop('hidden', true);
+        }
     });
 });

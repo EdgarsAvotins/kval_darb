@@ -40,4 +40,26 @@ def get_full_name(username, users):
     for user in users:
         if str(user.username) == str(username):
             return user.first_name + ' ' + user.last_name
-    return 'Does not exist'
+    return None
+
+@register.filter(name='get_iesniegums_url')
+def get_iesniegums_url(ieraksts, failu_saraksts):
+    for fails in failu_saraksts:
+        if fails.ieraksts.id == ieraksts.id:
+            print fails.iesniegums.url
+            return fails.iesniegums.url
+    return None
+
+@register.filter(name='get_atskaite_url')
+def get_atskaite_url(ieraksts, failu_saraksts):
+    for fails in failu_saraksts:
+        if fails.ieraksts.id == ieraksts.id:
+            return fails.atskaite.url
+    return None
+
+@register.filter(name='get_ceks_url')
+def get_ceks_url(ieraksts, failu_saraksts):
+    for fails in failu_saraksts:
+        if fails.ieraksts.id == ieraksts.id:
+            return fails.ceks.url
+    return None

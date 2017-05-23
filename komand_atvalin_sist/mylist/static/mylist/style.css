@@ -12,12 +12,18 @@ body{
     color: #9d9d9d;
 }
 
-.gads {
+.gads{
     float: left;
     margin-top: 20px;
     font-size: 22px;
     color: #29abe2;
     /*margin-left: 10%;*/
+}
+
+.darbinieki-gads{
+    float: left;
+    font-size: 22px;
+    color: #29abe2;
 }
 
 .btn {
@@ -62,6 +68,10 @@ body{
 
 #admin-navigation div{
     text-align: center;
+}
+
+.employee-navigation{
+    margin-bottom: 20px;
 }
 
 #search-user-form{
@@ -162,7 +172,7 @@ body{
     padding-right: 20px;
 }
 
-.labot-iesniegumu-btn, .labot-atskaiti-btn{
+.labot-btn{
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     width: 131px;
@@ -175,7 +185,24 @@ body{
     vertical-align: middle;
 }
 
-.pievienot-atskaiti-btn{
+.download-button{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    width: 80px;
+    height: 20px;
+    background-color: #dfe3e9;
+    border: solid 1px #dcdcdc;
+    font-family: proxima-nova, sans-serif;
+    font-size: 12px;
+    color: #444c63;
+    vertical-align: middle;
+}
+
+.half-buttons{
+    width: 38px;
+}
+
+.pievienot-btn{
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     width: 131px;
@@ -188,6 +215,10 @@ body{
     vertical-align: middle;
 }
 
+.samazinat-btn{
+    width: 60px;
+}
+
 .viss-kartiba{
     margin-right: 20px;
     opacity: 0.40;
@@ -196,13 +227,13 @@ body{
     color: #444c63;
 }
 
-.labot-iesniegumu-dialog, .labot-atskaiti-dialog, .pievienot-atskaiti-dialog{
+.labot-iesniegumu-dialog, .labot-atskaiti-dialog, .pievienot-atskaiti-dialog, .labot-rikojumu-dialog, .pievienot-rikojumu-dialog{
     margin-top: 100px;
     font-family: proxima-nova, sans-serif;
     font-size: 12px;
     color: #444c63;
 }
-.labot-iesniegumu-dialog div, .labot-atskaiti-dialog div, .pievienot-atskaiti-dialog div{
+.labot-iesniegumu-dialog div, .labot-atskaiti-dialog div, .pievienot-atskaiti-dialog div, .labot-rikojumu-dialog div, .pievienot-rikojumu-dialog div{
     border-radius: 0;
 }
 
@@ -211,13 +242,13 @@ body{
 
 
 
-.labot-iesniegumu-dialog .modal-content{
+.labot-iesniegumu-dialog .modal-content, .labot-rikojumu-dialog .modal-content, .pievienot-rikojumu-dialog .modal-content{
     width: 300px;
     height: 150px;
     background-color: #ffffff;
 }
 
-.labot-iesniegumu-dialog .modal-body .header{
+.labot-iesniegumu-dialog .modal-body .header, .labot-rikojumu-dialog .modal-content .header, .pievienot-rikojumu-dialog .modal-content .header{
     font-family: proxima-nova, sans-serif;
     font-size: 14px;
     font-weight: bold;
@@ -227,17 +258,17 @@ body{
     padding-bottom: 0;
 }
 
-.labot-iesniegumu-dialog .modal-body .upload-title{
+.labot-iesniegumu-dialog .modal-body .upload-title, .labot-rikojumu-dialog .modal-body .upload-title, .pievienot-rikojumu-dialog .modal-body .upload-title{
     padding-bottom: 2px;
 }
 
-.labot-iesniegumu-dialog .modal-body form{
+.labot-iesniegumu-dialog .modal-body form, .labot-rikojumu-dialog .modal-body form, .pievienot-rikojumu-dialog .modal-body form{
     color: #444c63;
     font-family: proxima-nova, sans-serif;
     font-size: 12px;
 }
 
-.labot-iesniegumu-dialog .modal-body .submit{
+.labot-iesniegumu-dialog .modal-body .submit, .labot-rikojumu-dialog .modal-body .submit, .pievienot-rikojumu-dialog .modal-body .submit{
     margin-top: 20px;
 }
 
@@ -280,16 +311,44 @@ body{
 
 
 
+.paraugi-dialog .modal-content{
+    width: 300px;
+    height: 150px;
+    background-color: #ffffff;
+}
+
+.paraugi-dialog .modal-body .header{
+    font-family: proxima-nova, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #29abe2;
+    width: 270px;
+    border-bottom: solid 1px #29abe2;
+    padding-bottom: 0;
+}
+
+.paraugi-dialog .modal-body .upload-title{
+    padding-bottom: 2px;
+}
+
+.paraugi-dialog .modal-body{
+    color: #444c63;
+    font-family: proxima-nova, sans-serif;
+    font-size: 12px;
+}
+
+
+
 #table1 button:hover{
     border: solid 1px #86d1f0;
 }
 
-.pievienot-atskaiti-btn:hover{
+.pievienot-btn:hover{
     background-color: #e48691;
     color: #211f1f;
 }
 
-.pievienot-atskaiti-btn:focus{
+.pievienot-btn:focus{
     background-color: #e48691;
     color: #211f1f;
 }
@@ -328,8 +387,11 @@ input[type="radio"] {
     -ms-appearance: checkbox;     /* not currently supported */
 }
 
-.invisible-submit{
-    display: none;
+.submit-special-button{
+    background:none;
+    border:none;
+    padding:0;
+    outline: none;
 }
 
 #login-form{
@@ -344,5 +406,49 @@ input[type="radio"] {
     padding-top: 15px;
     overflow: scroll;
     height: 100px;
-    width: 200;
+    width: 200px;
+}
+
+.row-good-status{
+    opacity: 0.7;
+    /*background-color: #bfffc9;*/
+}
+
+.filter-btn, .paraugi-btn{
+    margin: 3px 2px 0px 2px;
+    padding: 0px 0px 0px 0px;
+    width: 90px;
+    height: 22px;
+    vertical-align: middle;
+    align-content: center;
+    background-color: #ffffff;
+    border: solid 1px #dcdcdc;
+    /*margin-right: 10%;*/
+    color: #000000;
+    font-family: proxima-nova, sans-serif;
+    font-size: 12px;
+}
+
+.filter-status{
+    margin-right: 15px;
+}
+
+.filter-btn:hover, .paraugi-btn:hover{
+    background-color: #e2edf7;
+}
+
+.filter-btn:active, .filter-btn:active{
+    background-color: #ced7e0;
+}
+
+.filter-btn:disabled{
+    background-color: #9d9d9d;
+}
+
+.filter-active{
+    background-color: #fdffcc;
+}
+
+.paraugi-btn{
+    margin: 22px 4px 0 0;
 }

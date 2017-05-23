@@ -73,47 +73,69 @@
                 </div>
             </div>
 -->
+            <div class="row pull-right">
+                <button type="button" class="btn paraugi-btn" data-toggle="modal" data-target="#paraugi-modal">Paraugi</button>
 
-            <div class="dropdown pull-right">
-                <div class="btn pievienot" data-toggle="dropdown" role="button" aria-expanded="false">
-                    +Pievienot
+                <div class="modal fade paraugi-modal" id="paraugi-modal">
+                    <div class="modal-dialog modal-sm paraugi-dialog" id="paraugi-dialog-{{ ieraksts.id }}">
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                <div class="header">
+                                    Dokumentu paraugi
+                                </div>
+                                <div class="upload-title">Iesniegums</div>
+                                <a class="btn btn-default download-button" role="button" href="/media/iesniegums.doc" download>Lejuplādēt</a>
+                                <div class="upload-title">Atskaite</div>
+                                <a class="btn btn-default download-button" role="button" href="/media/atskaite.doc" download>Lejuplādēt</a>
+                                <div>Daži atgādinājumi...</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="dropdown-menu stop-propagation pievienot-menu" role="menu">
-                    <div class="form-group">
-                        <form method='POST' role="form" enctype='multipart/form-data' action="/mylist/" id="myform">{% csrf_token %}
-                            <div class="radio">
-                                <label><input type="radio" name="merkis" value="komandejums" checked="checked" id="komandejums-radio">Komandejums</label>
-                            </div>
-                            <div class="radio">
-                                <label><input type="radio" name="merkis" value="atvalinajums" id="atvalinajums-radio">Atvalinajums</label>
-                            </div>
 
-
-                            <div class="row" id="datepickers">
-                                <div id="start-date">
-                                    No<br>
-                                    <input class="form-control datepicker" required="required" id="date" name="datums_no" type="text" style="width:100px; height:20px"/>
+                <div class="dropdown">
+                    <div class="btn pievienot" data-toggle="dropdown" role="button" aria-expanded="false">
+                        +Pievienot
+                    </div>
+                    <div class="dropdown-menu stop-propagation pievienot-menu" role="menu">
+                        <div class="form-group">
+                            <form method='POST' role="form" enctype='multipart/form-data' action="/mylist/" id="myform">{% csrf_token %}
+                                <div class="radio">
+                                    <label><input type="radio" name="merkis" value="komandejums" checked="checked" id="komandejums-radio">Komandejums</label>
                                 </div>
-                                <div id="end-date">
-                                    Līdz<br>
-                                    <input class="form-control datepicker" required="required" id="date" name="datums_lidz" type="text" style="width:100px; height:20px"/>
+                                <div class="radio">
+                                    <label><input type="radio" name="merkis" value="atvalinajums" id="atvalinajums-radio">Atvalinajums</label>
                                 </div>
-                            </div>
 
-                            <div id="myform-vieta">
-                                Vieta<br>
-                                <input id="input-vieta" required="required" type="text" name="vieta">
-                            </div>
-                            <div class="default-hide" id="myform-iesniegums">
-                                Iesniegums<br>
-                                <input type="file" id="jauns-ieraksts-iesniegums" name="iesniegums">
-                            </div>
 
-                            <input class="btn submit pull-right" type="submit" value="Nosūtīt">
-                        </form>
+                                <div class="row" id="datepickers">
+                                    <div id="start-date">
+                                        No<br>
+                                        <input class="form-control datepicker datepicker1" required="required" id="date" name="datums_no" type="text" style="width:100px; height:20px"/>
+                                    </div>
+                                    <div id="end-date">
+                                        Līdz<br>
+                                        <input class="form-control datepicker datepicker2" required="required" id="date" name="datums_lidz" type="text" style="width:100px; height:20px"/>
+                                    </div>
+                                </div>
+
+                                <div id="myform-vieta">
+                                    Vieta<br>
+                                    <input id="input-vieta" required="required" type="text" name="vieta">
+                                </div>
+                                <div class="default-hide" id="myform-iesniegums">
+                                    Iesniegums<br>
+                                    <input type="file" id="jauns-ieraksts-iesniegums" name="iesniegums">
+                                </div>
+
+                                <input class="btn submit pull-right" type="submit" value="Nosūtīt">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+
 
             <table class="table" id="table1">
 
@@ -147,7 +169,7 @@
                             <td class="pull-right viss-kartiba"><span class="glyphicon glyphicon-ok"></span> Viss kārtībā!</td>
                         {% elif ieraksts.statuss == False and ieraksts.merkis == 'atvalinajums' %}
 {#                            <td class="pull-right">Labot iesniegumu</td>#}
-                            <td class="pull-right"><button type="button" class="btn btn-default labot-iesniegumu-btn" data-toggle="modal" data-target="#labot-iesniegumu-modal-{{ ieraksts.id }}" id="labot-iesniegumu-btn-{{ ieraksts.id }}">Labot iesniegumu</button></td>
+                            <td class="pull-right"><button type="button" class="btn btn-default labot-btn" data-toggle="modal" data-target="#labot-iesniegumu-modal-{{ ieraksts.id }}" id="labot-iesniegumu-btn-{{ ieraksts.id }}">Labot iesniegumu</button></td>
 
                             <div class="modal fade labot-iesniegumu-modal" id="labot-iesniegumu-modal-{{ ieraksts.id }}">
                                 <div class="modal-dialog modal-sm labot-iesniegumu-dialog" id="labot-iesniegumu-dialog-{{ ieraksts.id }}">
@@ -172,7 +194,7 @@
                             {% if ieraksts.datums_lidz|trip_ended %}
                                 {% if ieraksts|is_found:komandejumu_failu_saraksts == False %}
 {#                                    <td class="pull-right">Pievienot atskaiti</td>#}
-                                    <td class="pull-right"><button type="button" class="btn btn-danger pievienot-atskaiti-btn" data-toggle="modal" data-target="#pievienot-atskaiti-modal-{{ ieraksts.id }}" id="pievienot-atskaiti-btn-{{ ieraksts.id }}">Pievienot atskaiti</button></td>
+                                    <td class="pull-right"><button type="button" class="btn btn-danger pievienot-btn" data-toggle="modal" data-target="#pievienot-atskaiti-modal-{{ ieraksts.id }}" id="pievienot-atskaiti-btn-{{ ieraksts.id }}">Pievienot atskaiti</button></td>
 
                                     <div class="modal fade pievienot-atskaiti-modal atskaite-modal" id="pievienot-atskaiti-modal-{{ ieraksts.id }}">
                                         <div class="modal-dialog modal-sm pievienot-atskaiti-dialog" id="pievienot-atskaiti-dialog-{{ ieraksts.id }}">
@@ -200,7 +222,7 @@
 
                                 {% else %}
 {#                                    <td class="pull-right">Labot atskaiti</td>#}
-                                    <td class="pull-right"><button type="button" class="btn btn-default labot-atskaiti-btn" data-toggle="modal" data-target="#labot-atskaiti-modal-{{ ieraksts.id }}" id="labot-atskaiti-btn-{{ ieraksts.id }}">Labot atskaiti</button></td>
+                                    <td class="pull-right"><button type="button" class="btn btn-default labot-btn" data-toggle="modal" data-target="#labot-atskaiti-modal-{{ ieraksts.id }}" id="labot-atskaiti-btn-{{ ieraksts.id }}">Labot atskaiti</button></td>
 
                                     <div class="modal fade labot-atskaiti-modal atskaite-modal" id="labot-atskaiti-modal-{{ ieraksts.id }}">
                                         <div class="modal-dialog modal-sm labot-atskaiti-dialog" id="labot-atskaiti-dialog-{{ ieraksts.id }}">

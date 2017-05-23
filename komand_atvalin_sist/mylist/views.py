@@ -281,6 +281,7 @@ def saved(request):
     if request.method == 'POST':
 
         online_user = request.user
+        all_users = User.objects.all()
 
         saglabatie_lietotaji_saraksts = SaglabatieLietotaji.objects.filter(lietotajs_pats=online_user).values_list('saglabatais_lietotajs', flat=True)
         ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts)
@@ -292,7 +293,6 @@ def saved(request):
         iznemt_lietotaju = request.POST.get('iznemt_lietotaju')
 
         total_user_count = User.objects.latest('id').id + 1
-        print total_user_count
 
         if pievienot_lietotaju:
             counter = 0
@@ -301,7 +301,6 @@ def saved(request):
                 posted_username = request.POST.get(string)
                 if posted_username:
                     user_to_save = User.objects.get(username=posted_username)
-                    print user_to_save
                     SaglabatieLietotaji.objects.create(lietotajs_pats=online_user, saglabatais_lietotajs=user_to_save)
                 counter += 1
 
@@ -312,7 +311,6 @@ def saved(request):
                 posted_username = request.POST.get(string)
                 if posted_username:
                     user_to_delete = User.objects.get(username=posted_username)
-                    print user_to_delete
                     SaglabatieLietotaji.objects.get(lietotajs_pats=online_user, saglabatais_lietotajs=user_to_delete).delete()
                 counter += 1
 
@@ -320,6 +318,7 @@ def saved(request):
         context = {
             'ieraksti': ieraksti,
             'users': users,
+            'all_users': all_users,
             'saved_users': saved_users,
             'online_user': online_user,
         }
@@ -349,8 +348,11 @@ def employees(request):
         iesniegums_labot_id = request.POST.get("iesniegums_labot")
         atskaite_pievienot_id = request.POST.get("atskaite_pievienot")
         atskaite_labot_id = request.POST.get("atskaite_labot")
-        status_make_false = request.POST.get("status_make_false")
-        status_make_true = request.POST.get("status_make_true")
+        rikojums_pievienot_id = request.POST.get("rikojums_pievienot")
+        rikojums_labot_id = request.POST.get("rikojums_labot")
+        statuss_nav_kartiba = request.POST.get("statuss_nav_kartiba")
+        statuss_kartiba = request.POST.get("statuss_kartiba")
+        izdzest_ierakstu = request.POST.get("izdzest_ierakstu")
 
         files = request.FILES
 
@@ -408,19 +410,48 @@ def employees(request):
 
             correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
 
-        elif status_make_false:
+        elif rikojums_pievienot_id:
 
-            pareizais_ieraksts = Ieraksts.objects.get(id=status_make_false)
+            rikojums_fails = request.FILES['rikojums']
+            pareizais_ieraksts = Ieraksts.objects.get(id=rikojums_pievienot_id)
+            Norikojums.objects.create(ieraksts=pareizais_ieraksts, norikojums=rikojums_fails)
+
+            correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
+
+        elif rikojums_labot_id:
+
+            rikojums_fails = request.FILES['rikojums']
+            pareizais_ieraksts = Ieraksts.objects.get(id=rikojums_labot_id)
+            pareizais_rikojums = Norikojums.objects.get(ieraksts=pareizais_ieraksts)
+            pareizais_rikojums.norikojums = rikojums_fails
+            pareizais_rikojums.save()
+
+            correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
+            print correct_user
+
+        elif statuss_nav_kartiba:
+
+            pareizais_ieraksts = Ieraksts.objects.get(id=statuss_nav_kartiba)
             pareizais_ieraksts.statuss = False
+            pareizais_ieraksts.save()
 
             correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
 
-        elif status_make_true:
+        elif statuss_kartiba:
 
-            pareizais_ieraksts = Ieraksts.objects.get(id=status_make_false)
-            pareizais_ieraksts.statuss = False
+            pareizais_ieraksts = Ieraksts.objects.get(id=statuss_kartiba)
+            pareizais_ieraksts.statuss = True
+            pareizais_ieraksts.save()
 
             correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
+
+        elif izdzest_ierakstu:
+
+            pareizais_ieraksts = Ieraksts.objects.get(id=izdzest_ierakstu)
+            correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
+            pareizais_ieraksts.delete()
+
+
 
         ieraksti = Ieraksts.objects.filter(lietotajs=correct_user).order_by('-datums_no')
         ieraksti_id = Ieraksts.objects.filter(lietotajs=correct_user, merkis='komandejums').values_list('id',
@@ -428,12 +459,18 @@ def employees(request):
         komandejumu_failu_saraksts = Komandejums.objects.filter(ieraksts__id__in=ieraksti_id)
         norikojumu_failu_saraksts = Norikojums.objects.filter(ieraksts__id__in=ieraksti_id)
 
+        ieraksti_id = Ieraksts.objects.filter(lietotajs=correct_user, merkis='atvalinajums').values_list('id',
+                                                                                                        flat=True)
+        atvalinajumu_failu_saraksts = Atvalinajums.objects.filter(ieraksts__id__in=ieraksti_id)
+
         context = {
             'online_user': online_user,
             'users': users,
             'ieraksti': ieraksti,
             'komandejumu_failu_saraksts': komandejumu_failu_saraksts,
             'norikojumu_failu_saraksts': norikojumu_failu_saraksts,
+            'atvalinajumu_failu_saraksts': atvalinajumu_failu_saraksts,
+            'correct_user': correct_user,
         }
         return render(request, 'mylist/employees.html', context)
 
