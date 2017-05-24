@@ -71,7 +71,6 @@
                         <div class="">
                             <form method='POST' role="form" enctype='multipart/form-data' action="/mylist/employees" id="search-user-form">{% csrf_token %}
                                 {% for user in users %}
-    {#                                <input type="hidden" name="darbinieks_pieprasit" value="{{ user.id }}">#}
                                     <input class="btn btn-default pull-right user-full-name" name="darbinieks_pieprasit" type="submit" value="{{ user.first_name }} {{ user.last_name }}">
                                 {% endfor %}
                             </form>

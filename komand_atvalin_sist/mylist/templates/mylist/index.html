@@ -87,7 +87,7 @@
                                 <div class="upload-title">Iesniegums</div>
                                 <a class="btn btn-default download-button" role="button" href="/media/iesniegums.doc" download>Lejuplādēt</a>
                                 <div class="upload-title">Atskaite</div>
-                                <a class="btn btn-default download-button" role="button" href="/media/atskaite.doc" download>Lejuplādēt</a>
+                                <a class="btn btn-default download-button" role="button" href="/media/atskaite.docx" download>Lejuplādēt</a>
                                 <div>Daži atgādinājumi...</div>
                             </div>
                         </div>
@@ -439,9 +439,6 @@
 
         </div>
     </div>
-{% for kom in komandejumu_failu_saraksts %}
-    <a href="{{ kom.atskaite.url }}" download>download {{ kom.atskaite.name }}</a><br>
-{% endfor %}
 </body>
 
 {%endblock content%}

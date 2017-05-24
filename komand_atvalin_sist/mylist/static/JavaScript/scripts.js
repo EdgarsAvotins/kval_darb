@@ -173,3 +173,21 @@ $(function(){
         }
     });
 });
+
+$(function(){
+    $('.delete-user-from-saved').on('click', function () {
+        var button = $(this);
+        button.find('input').prop('value', 1);
+        button.parent().hide();
+        $('.save-user-changes-btn').prop('disabled', false);
+    });
+});
+
+$(function(){
+    $('.saved-users').on('click', function () {
+        $('.saved-users-full-name').each (function () {
+            $(this).show();
+        });
+        $('.save-user-changes-btn').prop('disabled', true);
+    });
+});

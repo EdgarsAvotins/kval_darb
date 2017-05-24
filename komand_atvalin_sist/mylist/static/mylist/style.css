@@ -227,13 +227,13 @@ body{
     color: #444c63;
 }
 
-.labot-iesniegumu-dialog, .labot-atskaiti-dialog, .pievienot-atskaiti-dialog, .labot-rikojumu-dialog, .pievienot-rikojumu-dialog{
+.labot-iesniegumu-dialog, .labot-atskaiti-dialog, .pievienot-atskaiti-dialog, .labot-rikojumu-dialog, .pievienot-rikojumu-dialog, .saglabatie-dialog{
     margin-top: 100px;
     font-family: proxima-nova, sans-serif;
     font-size: 12px;
     color: #444c63;
 }
-.labot-iesniegumu-dialog div, .labot-atskaiti-dialog div, .pievienot-atskaiti-dialog div, .labot-rikojumu-dialog div, .pievienot-rikojumu-dialog div{
+.labot-iesniegumu-dialog div, .labot-atskaiti-dialog div, .pievienot-atskaiti-dialog div, .labot-rikojumu-dialog div, .pievienot-rikojumu-dialog div, .saglabatie-dialog div{
     border-radius: 0;
 }
 
@@ -242,13 +242,13 @@ body{
 
 
 
-.labot-iesniegumu-dialog .modal-content, .labot-rikojumu-dialog .modal-content, .pievienot-rikojumu-dialog .modal-content{
+.labot-iesniegumu-dialog .modal-content, .labot-rikojumu-dialog .modal-content, .pievienot-rikojumu-dialog .modal-content, .saglabatie-dialog .modal-content{
     width: 300px;
     height: 150px;
     background-color: #ffffff;
 }
 
-.labot-iesniegumu-dialog .modal-body .header, .labot-rikojumu-dialog .modal-content .header, .pievienot-rikojumu-dialog .modal-content .header{
+.labot-iesniegumu-dialog .modal-body .header, .labot-rikojumu-dialog .modal-content .header, .pievienot-rikojumu-dialog .modal-content .header, .saglabatie-dialog .modal-content .header{
     font-family: proxima-nova, sans-serif;
     font-size: 14px;
     font-weight: bold;
@@ -258,11 +258,11 @@ body{
     padding-bottom: 0;
 }
 
-.labot-iesniegumu-dialog .modal-body .upload-title, .labot-rikojumu-dialog .modal-body .upload-title, .pievienot-rikojumu-dialog .modal-body .upload-title{
+.labot-iesniegumu-dialog .modal-body .upload-title, .labot-rikojumu-dialog .modal-body .upload-title, .pievienot-rikojumu-dialog .modal-body .upload-title, .saglabatie-dialog .modal-body{
     padding-bottom: 2px;
 }
 
-.labot-iesniegumu-dialog .modal-body form, .labot-rikojumu-dialog .modal-body form, .pievienot-rikojumu-dialog .modal-body form{
+.labot-iesniegumu-dialog .modal-body form, .labot-rikojumu-dialog .modal-body form, .pievienot-rikojumu-dialog .modal-body form, .saglabatie-dialog .modal-body form{
     color: #444c63;
     font-family: proxima-nova, sans-serif;
     font-size: 12px;
@@ -339,6 +339,72 @@ body{
 
 
 
+
+
+.saglabatie-dialog .modal-content{
+    width: 210px;
+    height: 270px;
+    background-color: #ffffff;
+}
+
+.saglabatie-dialog .modal-body .header{
+    font-family: proxima-nova, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #29abe2;
+    width: 180px;
+    border-bottom: solid 1px #29abe2;
+    padding-bottom: 0;
+}
+
+.saglabatie-dialog .modal-body .upload-title{
+    padding-bottom: 2px;
+}
+
+.saglabatie-dialog .modal-body{
+    color: #444c63;
+    font-family: proxima-nova, sans-serif;
+    font-size: 12px;
+}
+
+.save-user-changes-btn{
+    width: 115px;
+}
+
+.saved-users-full-name{
+    margin-bottom: 5px;
+    font-family: proxima-nova, sans-serif;
+    font-size: 12px;
+}
+
+#search-saved-user-form{
+    padding: 10px 0 10px 0;
+}
+
+.saved-user-list{
+    padding-right: 20px;
+    margin-bottom: 0;
+    width: 178px;
+    height: 160px;
+    overflow: scroll;
+}
+
+/*#search-saved-user-form input{*/
+    /*width: 100%;*/
+    /*border: none;*/
+    /*border-top: solid 1px #bababa;*/
+    /*border-bottom: solid 1px #bababa;*/
+    /*font-family: proxima-nova, sans-serif;*/
+    /*font-size: 12px;*/
+    /*color: #444c63;*/
+/*}*/
+
+/*#search-saved-user-form input:hover{*/
+    /*background-color: #e2edf7;*/
+/*}*/
+
+
+
 #table1 button:hover{
     border: solid 1px #86d1f0;
 }
@@ -402,6 +468,10 @@ input[type="radio"] {
     margin-top: 0px;
 }
 
+.saved-user-full-name{
+
+}
+
 #user-list{
     padding-top: 15px;
     overflow: scroll;
@@ -415,7 +485,7 @@ input[type="radio"] {
 }
 
 .filter-btn, .paraugi-btn{
-    margin: 3px 2px 0px 2px;
+    margin: 2px 2px 0px 2px;
     padding: 0px 0px 0px 0px;
     width: 90px;
     height: 22px;

@@ -50,34 +50,83 @@
             {% endif %}
 
 
-            <input id="search-input1" placeholder="Meklēt..."><br>
-            <form method='POST' enctype='multipart/form-data' role="form" action="/mylist/saved">{% csrf_token %}
-                <div id="user-list">
-                    {% for user in users %}
-                        <div class="checkbox user-full-name1">
-                          <label><input type="checkbox" data-toggle="buttons" name="add_user{{ user.id }}" value="{{ user }}">{{ user.first_name }} {{ user.last_name }}</label>
-                        </div>
-                    {% endfor %}
-                </div>
-                <input type="hidden" name="pievienot_lietotaju" value="1">
-                <input class="btn btn-default submit-users" type="submit" value="Pievienot">
-            </form>
-
-            <input id="search-input2" placeholder="Meklēt..."><br>
-            <form method='POST' enctype='multipart/form-data' role="form" action="/mylist/saved">{% csrf_token %}
-                <div id="user-list">
-                    {% for user in saved_users %}
-                        <div class="checkbox user-full-name2">
-                          <label><input type="checkbox" data-toggle="buttons" name="delete_user{{ user.id }}" value="{{ user }}">{{ user.first_name }} {{ user.last_name }}</label>
-                        </div>
-                    {% endfor %}
-                </div>
-                <input type="hidden" name="iznemt_lietotaju" value="1">
-                <input class="btn btn-default submit-users" type="submit" value="Izņemt">
-            </form>
+{#            <input id="search-input1" placeholder="Meklēt..."><br>#}
+{#            <form method='POST' enctype='multipart/form-data' role="form" action="/mylist/saved">{% csrf_token %}#}
+{#                <div id="user-list">#}
+{#                    {% for user in users %}#}
+{#                        <div class="checkbox user-full-name1">#}
+{#                          <label><input type="checkbox" data-toggle="buttons" name="add_user{{ user.id }}" value="{{ user }}">{{ user.first_name }} {{ user.last_name }}</label>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#                <input type="hidden" name="pievienot_lietotaju" value="1">#}
+{#                <input class="btn btn-default submit-users" type="submit" value="Pievienot">#}
+{#            </form>#}
+{##}
+{#            <input id="search-input2" placeholder="Meklēt..."><br>#}
+{#            <form method='POST' enctype='multipart/form-data' role="form" action="/mylist/saved">{% csrf_token %}#}
+{#                <div id="user-list">#}
+{#                    {% for user in saved_users %}#}
+{#                        <div class="checkbox user-full-name2">#}
+{#                          <label><input type="checkbox" data-toggle="buttons" name="delete_user{{ user.id }}" value="{{ user }}">{{ user.first_name }} {{ user.last_name }}</label>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#                <input type="hidden" name="iznemt_lietotaju" value="1">#}
+{#                <input class="btn btn-default submit-users" type="submit" value="Izņemt">#}
+{#            </form>#}
 
 
             <div class="gads"> ŠODIEN, {% now 'd.m.Y' %} </div>
+            <div class="row pull-right">
+                <button type="button" class="btn filter-btn saved-users" data-toggle="modal" data-target="#saglabatie-modal">Saglabātie</button>
+
+                <div class="modal fade saglabatie-modal" id="saglabatie-modal">
+                    <div class="modal-dialog modal-sm saglabatie-dialog" id="saglabatie-dialog-{{ ieraksts.id }}">
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                <div class="header">
+                                    Saglabātie lietotāji
+                                </div>
+                                <div>
+                                    <form method='POST' role="form" enctype='multipart/form-data' action="/mylist/saved" id="search-saved-user-form">{% csrf_token %}
+                                        <input type="hidden" name="iznemt_lietotaju" value="1">
+                                        <div class="saved-user-list">
+                                            {% for user in saved_users %}
+                                                <div class="saved-users-full-name">{{ user.first_name }} {{ user.last_name }}
+                                                    <button type="button" class="submit-special-button delete-user-from-saved pull-right" name="{{ user }}">
+                                                        <input type="hidden" name="delete_user{{ user.id }}" value="">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </button>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <input class="btn submit pull-right save-user-changes-btn" type="submit" disabled="disabled" value="Saglabāt izmaiņas">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="dropdown">
+                    <div class="" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <input id="search-input" placeholder="Pievienot..."><br>
+                    </div>
+                    <div class="dropdown-menu stop-propagation" role="menu">
+                        <div class="">
+                            <form method='POST' role="form" enctype='multipart/form-data' action="/mylist/saved" id="search-user-form">{% csrf_token %}
+                                <input type="hidden" name="pievienot_lietotaju" value="1">
+                                {% for user in users %}
+                                    <input class="btn btn-default pull-right user-full-name" name="add_user{{ user.id }}" type="submit" value="{{ user.first_name }} {{ user.last_name }}">
+                                {% endfor %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <table class="table">
 

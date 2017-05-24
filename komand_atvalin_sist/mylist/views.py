@@ -264,7 +264,8 @@ def saved(request):
         all_users = User.objects.all()
 
         saglabatie_lietotaji_saraksts = SaglabatieLietotaji.objects.filter(lietotajs_pats=online_user).values_list('saglabatais_lietotajs', flat=True)
-        ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts)
+        now = datetime.date.today()
+        ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts).filter(datums_no__lte=now, datums_lidz__gte=now).order_by('lietotajs')
 
         users = User.objects.exclude(id=online_user.id).exclude(id__in=saglabatie_lietotaji_saraksts)
         saved_users = User.objects.exclude(id=online_user.id).filter(id__in=saglabatie_lietotaji_saraksts)
@@ -284,7 +285,8 @@ def saved(request):
         all_users = User.objects.all()
 
         saglabatie_lietotaji_saraksts = SaglabatieLietotaji.objects.filter(lietotajs_pats=online_user).values_list('saglabatais_lietotajs', flat=True)
-        ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts)
+        now = datetime.date.today()
+        ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts).filter(datums_no__lte=now, datums_lidz__gte=now).order_by('lietotajs')
 
         users = User.objects.exclude(id=online_user.id).exclude(id__in=saglabatie_lietotaji_saraksts)
         saved_users = User.objects.exclude(id=online_user.id).filter(id__in=saglabatie_lietotaji_saraksts)
@@ -298,9 +300,9 @@ def saved(request):
             counter = 0
             for _ in " " * total_user_count:
                 string = 'add_user' + str(counter)
-                posted_username = request.POST.get(string)
-                if posted_username:
-                    user_to_save = User.objects.get(username=posted_username)
+                posted_id = request.POST.get(string)
+                if posted_id:
+                    user_to_save = User.objects.get(id=counter)
                     SaglabatieLietotaji.objects.create(lietotajs_pats=online_user, saglabatais_lietotajs=user_to_save)
                 counter += 1
 
@@ -308,9 +310,9 @@ def saved(request):
             counter = 0
             for _ in " " * total_user_count:
                 string = 'delete_user' + str(counter)
-                posted_username = request.POST.get(string)
-                if posted_username:
-                    user_to_delete = User.objects.get(username=posted_username)
+                posted_id = request.POST.get(string)
+                if posted_id:
+                    user_to_delete = User.objects.get(id=counter)
                     SaglabatieLietotaji.objects.get(lietotajs_pats=online_user, saglabatais_lietotajs=user_to_delete).delete()
                 counter += 1
 
