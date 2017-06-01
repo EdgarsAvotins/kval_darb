@@ -67,12 +67,6 @@ $(function(){
 
 });
 
-// $( 'body' ).on( 'click', '#enable-upload', function() {
-//     if( $(this).attr('data-toggle') != 'button' ) { $(this).toggleClass('active');      }
-//     if( $(this).hasClass( 'active' ) == true )    { $("input").prop('disabled', false); }
-//     if( $(this).hasClass( 'active' ) == false )   { $("input").prop('disabled', true);  }
-// });
-
 // atkariba no atķeksēšanas, padarīt čeku iesūtīšanu pieejamu un obligātu vai otrādāk, ja neatķeksē
 // šis atbilst par "pievienot atskaiti" popup
 $(function(){
