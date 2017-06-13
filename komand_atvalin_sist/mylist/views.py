@@ -1,31 +1,22 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.core.files.storage import FileSystemStorage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
-from .models import Ieraksts, Atvalinajums, Komandejums, SaglabatieLietotaji, Norikojums
-import datetime
-
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login
-from django.views.generic import View
-from django.utils.http import is_safe_url
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.http import HttpResponseRedirect
+import datetime
+from .models import Ieraksts, Atvalinajums, Komandejums, SaglabatieLietotaji, Norikojums
+from .document_generator import DocumentCreator
 
 
-def index(request): # /mylist/
+def index(request):  # /mylist/
+    something = DocumentCreator()
     if request.method == 'GET':
-
         online_user = request.user  # mana lietotaja objekts
 
-        ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user).order_by('-datums_no')   # saraksts ar online lietotaja ierakstiem, kratoti pec jaunaka datuma
+        ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user
+                                                    ).order_by('-datums_no')   # saraksts ar online lietotaja ierakstiem, kratoti pec jaunaka datuma
 
         paginator_kopejais = Paginator(ieraksti_saraksts, 10)  # radit 10 ierakstus katra lapa
 
@@ -39,10 +30,9 @@ def index(request): # /mylist/
             # ja page ir arpus meroga, tad atgriest pedejo lapu
             ieraksti = paginator_kopejais.page(paginator_kopejais.num_pages)
 
-
-
-
-        atvalinajumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='atvalinajums').order_by('-datums_no')   # visi mani atvalinajumu ieraksti
+        atvalinajumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user,
+                                                                 merkis='atvalinajums'
+                                                                 ).order_by('-datums_no')   # visi mani atvalinajumu ieraksti
 
         paginator_atvalinajums = Paginator(atvalinajumu_ieraksti_saraksts, 5)  # radit piecus ierakstus katra lapa
 
@@ -54,10 +44,9 @@ def index(request): # /mylist/
         except EmptyPage:
             atvalinajumu_ieraksti = paginator_atvalinajums.page(paginator_atvalinajums.num_pages)
 
-
-
-
-        komandejumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').order_by('-datums_no')     # visi mani komandejumi
+        komandejumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user,
+                                                                merkis='komandejums'
+                                                                ).order_by('-datums_no')     # visi mani komandejumi
 
         paginator_komandejums = Paginator(komandejumu_ieraksti_saraksts, 5)  # radit piecus ierakstus katra lapa
 
@@ -69,12 +58,15 @@ def index(request): # /mylist/
         except EmptyPage:
             komandejumu_ieraksti = paginator_komandejums.page(paginator_komandejums.num_pages)
 
-        ieraksti_id = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').values_list('id', flat=True)     # manu komandejumu id
+        ieraksti_id = Ieraksts.objects.filter(lietotajs=online_user,
+                                              merkis='komandejums'
+                                              ).values_list('id',
+                                                            flat=True)     # manu komandejumu id
         komandejumu_failu_saraksts = Komandejums.objects.filter(ieraksts__id__in=ieraksti_id)   # manu komandejumu failu saraksts
 
         context = {
             'ieraksti_saraksts': ieraksti_saraksts,
-            'ieraksti' : ieraksti,
+            'ieraksti': ieraksti,
             'atvalinajumu_ieraksti': atvalinajumu_ieraksti,
             'komandejumu_ieraksti': komandejumu_ieraksti,
             'online_user': online_user,
@@ -104,12 +96,16 @@ def index(request): # /mylist/
         files = request.FILES   # visu iesutito failu nosaukumi
 
         if merkis:  # ja ir pievienots jauns ieraksts
-            object = Ieraksts.objects.create(lietotajs=online_user, merkis=merkis, datums_no=datums_no,
-                                             datums_lidz=datums_lidz, vieta=vieta)  # izveidot jaunu ierakstu. ja iesniegums, tad vieta = null
+            object = Ieraksts.objects.create(lietotajs=online_user,
+                                             merkis=merkis,
+                                             datums_no=datums_no,
+                                             datums_lidz=datums_lidz,
+                                             vieta=vieta)  # izveidot jaunu ierakstu. ja iesniegums, tad vieta = null
 
             if 'iesniegums' in files and merkis == 'atvalinajums':  # ja merkis ir atvalinajums un ir iesutits iesniegums
                 iesniegums = request.FILES['iesniegums']            # pieprasa iesnieguma failu
-                Atvalinajums.objects.create(ieraksts=object, iesniegums=iesniegums)     # saglaba datu baze sim atvalinajumam iesniegumu
+                Atvalinajums.objects.create(ieraksts=object,
+                                            iesniegums=iesniegums)     # saglaba datu baze sim atvalinajumam iesniegumu
 
         elif iesniegums_labot_id:   # ja velas labot iesniegumu
             iesniegums_fails = request.FILES['iesniegums']      # iesutitais iesniegums
@@ -127,11 +123,14 @@ def index(request): # /mylist/
             if 'ceks' in files and 'atskaite' in files:
                 atskaite_fails = request.FILES['atskaite']
                 ceks_fails = request.FILES['ceks']
-                Komandejums.objects.create(ieraksts=pareizais_ieraksts, atskaite=atskaite_fails, ceks=ceks_fails)
+                Komandejums.objects.create(ieraksts=pareizais_ieraksts,
+                                           atskaite=atskaite_fails,
+                                           ceks=ceks_fails)
 
             elif 'atskaite' in files:
                 atskaite_fails = request.FILES['atskaite']
-                Komandejums.objects.create(ieraksts=pareizais_ieraksts, atskaite=atskaite_fails)
+                Komandejums.objects.create(ieraksts=pareizais_ieraksts,
+                                           atskaite=atskaite_fails)
 
 
         elif atskaite_labot_id:     #ja velas labot atskaiti
@@ -158,7 +157,7 @@ def index(request): # /mylist/
 
 
 
-            # talak tapat ka GET metode
+        # talak tapat ka GET metode
         ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user).order_by('-datums_no')
 
         paginator_kopejais = Paginator(ieraksti_saraksts, 10)
@@ -174,7 +173,9 @@ def index(request): # /mylist/
 
 
 
-        atvalinajumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='atvalinajums').order_by('-datums_no')
+        atvalinajumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user,
+                                                                 merkis='atvalinajums'
+                                                                 ).order_by('-datums_no')
 
         paginator_atvalinajums = Paginator(atvalinajumu_ieraksti_saraksts, 5)
 
@@ -189,7 +190,9 @@ def index(request): # /mylist/
 
 
 
-        komandejumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').order_by('-datums_no')
+        komandejumu_ieraksti_saraksts = Ieraksts.objects.filter(lietotajs=online_user,
+                                                                merkis='komandejums'
+                                                                ).order_by('-datums_no')
 
         paginator_komandejums = Paginator(komandejumu_ieraksti_saraksts, 5)
 
@@ -203,7 +206,10 @@ def index(request): # /mylist/
 
 
 
-        ieraksti_id = Ieraksts.objects.filter(lietotajs=online_user, merkis='komandejums').values_list('id', flat=True)
+        ieraksti_id = Ieraksts.objects.filter(lietotajs=online_user,
+                                              merkis='komandejums'
+                                              ).values_list('id',
+                                                            flat=True)
         komandejumu_failu_saraksts = Komandejums.objects.filter(ieraksts__id__in=ieraksti_id)
 
         context = {
@@ -225,22 +231,21 @@ def all(request):
         users = User.objects.all()
 
         now = datetime.date.today()
+        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+        week_later = datetime.date.today() + datetime.timedelta(days=8)
             # atlasam visus aktivos ierakstus. taa, ka datums_no < tagad < datums_lidz
-        ieraksti_saraksts = Ieraksts.objects.exclude(lietotajs=online_user).filter(datums_no__lte=now, datums_lidz__gte=now).order_by('lietotajs')
-
-            # atkal dalam lpp
-        paginator = Paginator(ieraksti_saraksts, 10)
-
-        page = request.GET.get('page')
-        try:
-            ieraksti = paginator.page(page)
-        except PageNotAnInteger:
-            ieraksti = paginator.page(1)
-        except EmptyPage:
-            ieraksti = paginator.page(paginator.num_pages)
+        ieraksti_saraksts_sodien = Ieraksts.objects.exclude(lietotajs=online_user
+                                                            ).filter(datums_no__lte=now,
+                                                                     datums_lidz__gte=now
+                                                                     ).order_by('lietotajs')
+        ieraksti_saraksts_tuvakie = Ieraksts.objects.exclude(lietotajs=online_user
+                                                             ).filter(datums_no__gte=tomorrow,
+                                                                      datums_no__lte=week_later
+                                                                      ).order_by('datums_no')
 
         context = {
-            'ieraksti': ieraksti,
+            'ieraksti': ieraksti_saraksts_sodien,
+            'tuvakie_ieraksti': ieraksti_saraksts_tuvakie,
             'online_user': online_user,
             'users': users,
         }
@@ -253,19 +258,35 @@ def saved(request):
         online_user = request.user
         all_users = User.objects.all()
 
-            # atrodam visus savus saglabatos lietotajus
-        saglabatie_lietotaji_saraksts = SaglabatieLietotaji.objects.filter(lietotajs_pats=online_user).values_list('saglabatais_lietotajs', flat=True)
-        now = datetime.date.today()
-            # atlasam visus aktivos ierakstus saviem saglabatajiem lietotajiem
-        ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts).filter(datums_no__lte=now, datums_lidz__gte=now).order_by('lietotajs')
+        # atrodam visus savus saglabatos lietotajus
+        saglabatie_lietotaji_saraksts = SaglabatieLietotaji.objects.filter(lietotajs_pats=online_user
+                                                                           ).values_list('saglabatais_lietotajs',
+                                                                                         flat=True)
 
-            # atlasam visus lietotajus, iznemot sevi un tos, kas jau ir pie saglabatajiem
-        users = User.objects.exclude(id=online_user.id).exclude(id__in=saglabatie_lietotaji_saraksts)
-            # atlasam visus saglabatos lietotajus
-        saved_users = User.objects.exclude(id=online_user.id).filter(id__in=saglabatie_lietotaji_saraksts)
+        now = datetime.date.today()
+        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+        week_later = datetime.date.today() + datetime.timedelta(days=8)
+
+        # atlasam visus aktivos ierakstus saviem saglabatajiem lietotajiem
+        ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts
+                                           ).filter(datums_no__lte=now,
+                                                    datums_lidz__gte=now
+                                                    ).order_by('lietotajs')
+        ieraksti_saraksts_tuvakie = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts
+                                                            ).filter(datums_no__gte=tomorrow,
+                                                                     datums_no__lte=week_later
+                                                                     ).order_by('datums_no')
+
+        # atlasam visus lietotajus, iznemot sevi un tos, kas jau ir pie saglabatajiem
+        users = User.objects.exclude(id=online_user.id
+                                     ).exclude(id__in=saglabatie_lietotaji_saraksts)
+        # atlasam visus saglabatos lietotajus
+        saved_users = User.objects.exclude(id=online_user.id
+                                           ).filter(id__in=saglabatie_lietotaji_saraksts)
 
         context = {
             'ieraksti': ieraksti,
+            'tuvakie_ieraksti': ieraksti_saraksts_tuvakie,
             'users': users,
             'all_users': all_users,
             'saved_users': saved_users,
@@ -278,15 +299,31 @@ def saved(request):
         online_user = request.user
         all_users = User.objects.all()
 
-            # atrodam visus savus saglabatos lietotajus
-        saglabatie_lietotaji_saraksts = SaglabatieLietotaji.objects.filter(lietotajs_pats=online_user).values_list('saglabatais_lietotajs', flat=True)
+        # atrodam visus savus saglabatos lietotajus
+        saglabatie_lietotaji_saraksts = SaglabatieLietotaji.objects.filter(lietotajs_pats=online_user
+                                                                           ).values_list('saglabatais_lietotajs',
+                                                                                         flat=True)
+
         now = datetime.date.today()
-            # atlasam visus aktivos ierakstus saviem saglabatajiem lietotajiem
-        ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts).filter(datums_no__lte=now, datums_lidz__gte=now).order_by('lietotajs')
-            # atlasam visus lietotajus, iznemot sevi un tos, kas jau ir pie saglabatajiem
-        users = User.objects.exclude(id=online_user.id).exclude(id__in=saglabatie_lietotaji_saraksts)
-            # atlasam visus saglabatos lietotajus
-        saved_users = User.objects.exclude(id=online_user.id).filter(id__in=saglabatie_lietotaji_saraksts)
+        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+        week_later = datetime.date.today() + datetime.timedelta(days=8)
+
+        # atlasam visus aktivos ierakstus saviem saglabatajiem lietotajiem
+        ieraksti = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts
+                                           ).filter(datums_no__lte=now,
+                                                    datums_lidz__gte=now
+                                                    ).order_by('lietotajs')
+        ieraksti_saraksts_tuvakie = Ieraksts.objects.filter(lietotajs__in=saglabatie_lietotaji_saraksts
+                                                            ).filter(datums_no__gte=tomorrow,
+                                                                     datums_no__lte=week_later
+                                                                     ).order_by('datums_no')
+
+        # atlasam visus lietotajus, iznemot sevi un tos, kas jau ir pie saglabatajiem
+        users = User.objects.exclude(id=online_user.id
+                                     ).exclude(id__in=saglabatie_lietotaji_saraksts)
+        # atlasam visus saglabatos lietotajus
+        saved_users = User.objects.exclude(id=online_user.id
+                                           ).filter(id__in=saglabatie_lietotaji_saraksts)
 
         pievienot_lietotaju = request.POST.get('pievienot_lietotaju')
         iznemt_lietotaju = request.POST.get('iznemt_lietotaju')
@@ -301,7 +338,8 @@ def saved(request):
                 if posted_id:                           # ja atrodam, saglabajam, ja ne, ejam talak
                     user_to_save = User.objects.get(id=counter)
                         # izveidojam jauno "saglabatie" ierakstu pari - es un tas, ko gribeju pievienot
-                    SaglabatieLietotaji.objects.create(lietotajs_pats=online_user, saglabatais_lietotajs=user_to_save)
+                    SaglabatieLietotaji.objects.create(lietotajs_pats=online_user,
+                                                       saglabatais_lietotajs=user_to_save)
                 counter += 1
 
         elif iznemt_lietotaju:  # tapat, ka meginot pievienot
@@ -311,12 +349,14 @@ def saved(request):
                 posted_id = request.POST.get(string)
                 if posted_id:
                     user_to_delete = User.objects.get(id=counter)
-                    SaglabatieLietotaji.objects.get(lietotajs_pats=online_user, saglabatais_lietotajs=user_to_delete).delete()
+                    SaglabatieLietotaji.objects.get(lietotajs_pats=online_user,
+                                                    saglabatais_lietotajs=user_to_delete).delete()
                 counter += 1
 
 
         context = {
             'ieraksti': ieraksti,
+            'tuvakie_ieraksti': ieraksti_saraksts_tuvakie,
             'users': users,
             'all_users': all_users,
             'saved_users': saved_users,
@@ -360,7 +400,8 @@ def employees(request):
             full_name = darbinieks_pieprasit.split()    # sadalam, lai varetu atrast datu baze lietotaju pec varda, uzvarda
             name = full_name[0]
             surname = full_name[1]
-            correct_user = User.objects.get(first_name=name, last_name=surname) # atrodam datu baze
+            correct_user = User.objects.get(first_name=name,
+                                            last_name=surname) # atrodam datu baze
 
         elif iesniegums_labot_id:
             iesniegums_fails = request.FILES['iesniegums']
@@ -379,11 +420,14 @@ def employees(request):
                 atskaite_fails = request.FILES['atskaite']
                 ceks_fails = request.FILES['ceks']
                     # saglabajam failus, savienojam ar ierakstu
-                Komandejums.objects.create(ieraksts=pareizais_ieraksts, atskaite=atskaite_fails, ceks=ceks_fails)
+                Komandejums.objects.create(ieraksts=pareizais_ieraksts,
+                                           atskaite=atskaite_fails,
+                                           ceks=ceks_fails)
 
             elif 'atskaite' in files:   # ja tikai atskaite
                 atskaite_fails = request.FILES['atskaite']
-                Komandejums.objects.create(ieraksts=pareizais_ieraksts, atskaite=atskaite_fails)
+                Komandejums.objects.create(ieraksts=pareizais_ieraksts,
+                                           atskaite=atskaite_fails)
 
             correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
 
@@ -415,8 +459,9 @@ def employees(request):
 
             rikojums_fails = request.FILES['rikojums']
             pareizais_ieraksts = Ieraksts.objects.get(id=rikojums_pievienot_id)
-                # izveidojam jaunu norikojumu, pievienojam ierakstam
-            Norikojums.objects.create(ieraksts=pareizais_ieraksts, norikojums=rikojums_fails)
+            # izveidojam jaunu norikojumu, pievienojam ierakstam
+            Norikojums.objects.create(ieraksts=pareizais_ieraksts,
+                                      norikojums=rikojums_fails)
 
             correct_user = User.objects.get(username=pareizais_ieraksts.lietotajs)
 
@@ -454,20 +499,28 @@ def employees(request):
             pareizais_ieraksts.delete()     #izdzes pareizo ierakstu
 
 
-            # visi mani ieraksti, kartoti pec datuma
+        # visi mani ieraksti, kartoti pec datuma
         ieraksti = Ieraksts.objects.filter(lietotajs=correct_user).order_by('-datums_no')
-            # visi manu komandejumu id
-        ieraksti_id = Ieraksts.objects.filter(lietotajs=correct_user, merkis='komandejums').values_list('id',
-                                                                                                        flat=True)
-            # manu ierakstu komandejumu faili, jeb ceki un atskaites
+
+        # visi manu komandejumu id
+        ieraksti_id = Ieraksts.objects.filter(lietotajs=correct_user,
+                                              merkis='komandejums'
+                                              ).values_list('id',
+                                                            flat=True)
+
+        # manu ierakstu komandejumu faili, jeb ceki un atskaites
         komandejumu_failu_saraksts = Komandejums.objects.filter(ieraksts__id__in=ieraksti_id)
-            # manu ierakstu norikojumu faili
+
+        # manu ierakstu norikojumu faili
         norikojumu_failu_saraksts = Norikojums.objects.filter(ieraksts__id__in=ieraksti_id)
 
-            # visi manu atvalinajumu id
-        ieraksti_id = Ieraksts.objects.filter(lietotajs=correct_user, merkis='atvalinajums').values_list('id',
-                                                                                                        flat=True)
-            # manu ierakstu atvalinajumu faili, jeb iesniegumi
+        # visi manu atvalinajumu id
+        ieraksti_id = Ieraksts.objects.filter(lietotajs=correct_user,
+                                              merkis='atvalinajums'
+                                              ).values_list('id',
+                                                            flat=True)
+
+        # manu ierakstu atvalinajumu faili, jeb iesniegumi
         atvalinajumu_failu_saraksts = Atvalinajums.objects.filter(ieraksts__id__in=ieraksti_id)
 
         context = {
@@ -511,7 +564,8 @@ def login_page(request):
 
             if found_user:  # ja eksiste lietotajvards
                     # atgriez None, ja nesakrit parole vai lietotaja objektu, ja viss pareizi
-                user = authenticate(username=username, password=request.POST.get("password"))
+                user = authenticate(username=username,
+                                    password=request.POST.get("password"))
 
                 if user is not None:    # ja pareizi dati
                     login(request, user)    # pieslegties
@@ -540,7 +594,8 @@ def login_page(request):
                 User.objects.create_user(first_name=first_name, last_name=last_name,
                                          username=username, password=password)
 
-                user = authenticate(username=username, password=password)
+                user = authenticate(username=username,
+                                    password=password)
                 login(request, user)    # piesledzamies
                 # return index(request)
                 return HttpResponseRedirect('/mylist/')     # parejam uz mana saraksta skatu

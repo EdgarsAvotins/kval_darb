@@ -292,9 +292,26 @@
                         <td>
                             <form method='POST' role="form" enctype='multipart/form-data' action="/mylist/employees">{% csrf_token %}
                                 <input type="hidden" name="izdzest_ierakstu" value="{{ ieraksts.id }}">
-                                <button class="submit-special-button" type="submit">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
+                                <div class="submit-special-button" data-toggle="modal" data-target="#accept-deletion"><span class="glyphicon glyphicon-remove"></span></div>
+{#                                <button data-toggle="modal" data-target="#accept-deletion">#}
+{#                                    <span class="glyphicon glyphicon-remove"></span>#}
+{#                                </button>#}
+
+                                <div class="modal fade" id="accept-deletion">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header deletion-popup-header">
+                                                Vai tiešām vēlies izdzēst ierakstu?
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row justify-content-md-center">
+                                                    <button type="submit" class="btn btn-danger accept-deletion-btn">Jā</button>
+                                                    <button type="button" class="btn btn-default deny-deletion-btn" data-dismiss="modal">Nē</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </td>
                     </tr>

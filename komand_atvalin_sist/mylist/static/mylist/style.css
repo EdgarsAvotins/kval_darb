@@ -453,11 +453,12 @@ input[type="radio"] {
     -ms-appearance: checkbox;     /* not currently supported */
 }
 
-.submit-special-button{
-    background:none;
-    border:none;
-    padding:0;
+.submit-special-button {
+    background: none;
+    border: none;
+    padding: 0;
     outline: none;
+    cursor: pointer;
 }
 
 #login-form{
@@ -521,4 +522,19 @@ input[type="radio"] {
 
 .paraugi-btn{
     margin: 22px 4px 0 0;
+}
+
+.accept-deletion-btn, .deny-deletion-btn{
+    margin: 0 5px 0 5px;
+}
+
+.deletion-popup-header{
+  font-family: proxima-nova, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #29abe2;
+}
+
+.search-box-row{
+    margin-top: 20px;
 }

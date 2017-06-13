@@ -59,7 +59,6 @@
                         <th>Mērķis</th>
                         <th>Vieta</th>
                         <th>Līdz</th>
-                        <th></th>
                     </tr>
                 </thead>
                 {% for ieraksts in ieraksti %}
@@ -77,36 +76,46 @@
                         {% endif %}
                         <td>{{ ieraksts.vieta }}</td>
                         <td>{{ ieraksts.datums_lidz|date:"d.m.Y"}}</td>
-                        <td></td>
                     </tr>
                 </tbody>
                 {% endfor %}
             </table>
 
-            <div class="w3-center w3-small">
-                <div class="pagination">
-                    <div class="w3-bar">
-                        <span class="step-links">
-                            {% if ieraksti.has_previous %}
-                                <a href="?page={{ ieraksti.previous_page_number }}" class="w3-button"> &laquo; </a>
-                            {% else %}
-                                <a href="#" class="w3-button"> &laquo; </a>
-                            {% endif %}
+            <hr/>
 
-                            <span class="current">
-                                {{ ieraksti.number }} no {{ ieraksti.paginator.num_pages }}
-                            </span>
+            <div class="gads"> TUVĀKIE </div>
 
-                            {% if ieraksti.has_next %}
-                                <a href="?page={{ ieraksti.next_page_number }}" class="w3-button"> &raquo; </a>
-                            {% else %}
-                                <a href="#" class="w3-button"> &raquo; </a>
-                            {% endif %}
-                        </span>
-                    </div>
-                </div>
-            </div>
+            <table class="table">
 
+                <thead>
+                    <tr class="tabulas-galva row-header">
+                        <th>Vārds</th>
+                        <th>Mērķis</th>
+                        <th>Vieta</th>
+                        <th>No</th>
+                        <th>Līdz</th>
+                    </tr>
+                </thead>
+                {% for ieraksts in tuvakie_ieraksti %}
+                <tbody class="tbody">
+                    {% if ieraksts.merkis == 'atvalinajums' %}
+                    <tr class="row-vacation">
+                    {% elif ieraksts.merkis == 'komandejums' %}
+                    <tr class="row-business-travel">
+                    {% endif %}
+                        <td>{{ ieraksts.lietotajs|get_full_name:users }}</td>
+                        {% if ieraksts.merkis == 'atvalinajums' %}
+                        <td>Atvaļinājums</td>
+                        {% elif ieraksts.merkis == 'komandejums' %}
+                        <td>Komandējums</td>
+                        {% endif %}
+                        <td>{{ ieraksts.vieta }}</td>
+                        <td>{{ ieraksts.datums_no|date:"d.m.Y"}}</td>
+                        <td>{{ ieraksts.datums_lidz|date:"d.m.Y"}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
 
         </div>
     </div>
